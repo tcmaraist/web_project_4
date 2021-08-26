@@ -1,0 +1,14 @@
+.modal__body {
+    position: relative;
+    min-width: 300px;
+    padding: 20px;
+    border-radius:: 3px;
+    color: #1e1e1e;
+    background-color: #fefefe;
+}
+
+@media screen and (min-width: 768px) {
+    .modal__body {
+        min-width: 500px;
+    }
+}
