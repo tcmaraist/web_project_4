@@ -2,43 +2,45 @@
 ** Query Selectors
 */
 
-// header
+// profile
 const editProfileButton = document.querySelector('.profile__edit-button');
-const listTitle = document.querySelector('.profile__title')
-const listSubtitle = document.querySelector('.profile__subtitle')
+const profileName = document.querySelector('.profile__name')
+const profileAbout = document.querySelector('.profile__about')
+
 // modal
 const modal = document.querySelector('.modal');
 const closeButton = document.querySelector('.modal__close-button');
 
 //form
 const form = document.querySelector('.form');
-const titleInput = document.querySelector('#list-title');
-const subtitleInput = document.querySelector('#list-subtitle');
-
-/*
-** Init
-*/
-titleInput.value = listTitle.textContent;
-subtitleInput.value = listSubtitle.textContent;
+const nameInput = document.querySelector('#form-name');
+const aboutInput = document.querySelector('#form-about');
 
 /*
 ** Functions
 */
+function openModal() {
+  modal.classList.add('modal_is-open');
+  nameInput.value = profileName.textContent;
+  aboutInput.value = profileAbout.textContent;
+}
 
-function toggleModal() {
-    modal.classList.toggle('modal_is-open');
+function closeModal() {
+    modal.classList.remove('modal_is-open');
 }
 
 function updateProfile(event){
     event.preventDefault();
-    listTitle.textContent = titleInput.value;
-    listSubtitle.textContent = subtitleInput.value;
+    profileName.textContent = nameInput.value;
+    profileAbout.textContent = aboutInput.value;
 
-    toggleModal();
+    closeModal();
 }
+
 /*
 **  Event Listeners
 */
-form.addEventListener('submit', updateProfile, false)
-editProfileButton.addEventListener('click', toggleModal, false);
-closeButton.addEventListener('click', toggleModal, false);
+
+form.addEventListener('submit', updateProfile, false);
+editProfileButton.addEventListener('click', openModal, false);
+closeButton.addEventListener('click', closeModal, false);

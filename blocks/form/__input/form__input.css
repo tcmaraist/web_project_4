@@ -1,3 +1,7 @@
 .form__input {
     padding: 16px;
+    border: none;
+    border-bottom: 1px solid #000;
+    opacity: 0.2;
+    
 }
