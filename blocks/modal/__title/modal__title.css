@@ -1,4 +1,15 @@
 .modal__title {
+    margin: 0;
+    padding-left: 20px;
+    display: flex;
+    align-self: flex-start;
     font-size: 1.8rem;
-    font-weight: 100;
+    font-weight: 900;
+    line-height: 1.2;
+}
+
+@media screen and (min-width: 550px) {
+    .modal__title {
+        font-size: 2.4rem;
+    }
 }
