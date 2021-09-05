@@ -2,15 +2,18 @@
 
 ### Overview
 
+Around The U.S. is a photo-sharing website based on a design from Figma. Users can create a profile with their name and bio as well upload and save photos.
+
+### Technology used
+
 * Figma
-* Images
+* JavaScript
 
 **Figma**
-
 * [Link to the project in Figma](https://www.figma.com/file/SurN1jaeEQIhuZEDMhmWWf/Sprint-4-Around-The-U.S.-desktop-mobile?node-id=0%3A1)
 
-**Images**
+**JavaScript**
+* JavaScript adds functionality to the form and the like buttons
 
-The way you'll do this at work is by exporting images directly from Figma — we recommend doing that to practice more. Don't forget to optimize them [here](https://tinypng.com/), so your project loads faster. 
-
-Have fun with JavaScript!
+**Github Pages**
+* Link to project on Github Pages https://tcmaraist.github.io/web_project_4/
