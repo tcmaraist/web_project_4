@@ -13,57 +13,69 @@
         src="./images/header_logo.svg"
         alt="Around The U.S logo"
       />
-      <hr class="header__line" />
     </header>
     <main>
       <section class="profile">
-        <img class="profile__image" src="./images/profile.png" alt="user profile image"/>
+        <img
+          class="profile__image"
+          src="./images/profile.png"
+          alt="user profile image"
+        />
         <div class="profile__info">
           <div class="profile__info-group">
             <h1 class="profile__name">Jacques Cousteau</h1>
-            <button class="profile__edit-button button" type="button">
-              <img class="profile__edit-image" src="./images/edit-button.png" alt="edit button"/>
-            </button>
+            <button
+              aria-label="edit"
+              class="profile__edit-button button"
+              type="button"
+            ></button>
           </div>
           <p class="profile__about">Explorer</p>
         </div>
-        <button class="profile__add-button button" type="button">
-          <img src="./images/add_button.svg" alt="add button"/>
-        </button>
+        <button
+          aria-label="add"
+          class="profile__add-button button"
+          type="button"
+        ></button>
       </section>
 
       <section class="modal">
         <div class="modal__body">
-          <button class="modal__close-button button" type="button">
-            <img src="images/close-button.svg" alt="close button" />
-          </button>
-          <h2 class="modal__title">Edit Profile</h2>
-          <form class="form">
-            <label class="form__label">
-              <input
-                type="text"
-                name="form-name"
-                id="form-name"
-                class="form__input"
-                placeholder="Name"
-              />
-            </label>
-            <label class="form__label">
-              <input
-                type="text"
-                name="form-about"
-                id="form-about"
-                class="form__input"
-                placeholder="About Me"
-              />
-            </label>
-            <button class="button form__save-button" type="submit">Save</button>
+          <button
+            aria-label="close"
+            class="modal__close-button button"
+            type="button"
+          ></button>
+
+          <form class="form" name="form">
+            <h2 class="form__title">Edit Profile</h2>
+            <input
+              type="text"
+              name="form-name"
+              id="form-name"
+              class="form__input"
+              placeholder="Name"
+            />
+            <input
+              type="text"
+              name="form-about"
+              id="form-about"
+              class="form__input"
+              placeholder="About Me"
+            />
+            <button
+              aria-label="save"
+              class="button form__save-button"
+              type="submit"
+            >
+              Save
+            </button>
           </form>
         </div>
       </section>
 
       <section class="cards">
-        <div class="card">
+        <article class="card">
           <img
             class="card__image"
             src="./images/Yosemite_Valley.png"
@@ -71,16 +83,14 @@
           />
           <div class="card__info">
             <h2 class="card__title">Yosemite Valley</h2>
-            <button class="card__like-button button">
-              <img
-                class="card__like-image"
-                src="./images/like-button.svg"
-                alt="heart"
-              />
-            </button>
+            <button
+              aria-label="like"
+              class="card__like-button button"
+              type="button"
+            ></button>
           </div>
-        </div>
-        <div class="card">
+        </article>
+        <article class="card">
           <img
             class="card__image"
             src="./images/Lake_Louise.png"
@@ -88,16 +98,14 @@
           />
           <div class="card__info">
             <h2 class="card__title">Lake Louise</h2>
-            <button class="card__like-button button">
-              <img
-                class="card__like-image"
-                src="./images/like-button.svg"
-                alt="heart"
-              />
-            </button>
+            <button
+              aria-label="like"
+              class="card__like-button button"
+              type="button"
+            ></button>
           </div>
-        </div>
-        <div class="card">
+        </article>
+        <article class="card">
           <img
             class="card__image"
             src="./images/Bald_Mountains.png"
@@ -105,33 +113,25 @@
           />
           <div class="card__info">
             <h2 class="card__title">Bald Mountains</h2>
-            <button class="card__like-button button">
-              <img
-                class="card__like-image"
-                src="./images/like-button.svg"
-                alt="heart"
-              />
-            </button>
+            <button
+              aria-label="like"
+              class="card__like-button button"
+              type="button"
+            ></button>
           </div>
-        </div>
-        <div class="card">
-          <img
-            class="card__image"
-            src="./images/Latemar.png"
-            alt="Latemar"
-          />
+        </article>
+        <article class="card">
+          <img class="card__image" src="./images/Latemar.png" alt="Latemar" />
           <div class="card__info">
             <h2 class="card__title">Latemar</h2>
-            <button class="card__like-button button">
-              <img
-                class="card__like-image"
-                src="./images/like-button.svg"
-                alt="heart"
-              />
-            </button>
+            <button
+              aria-label="like"
+              class="card__like-button button"
+              type="button"
+            ></button>
           </div>
-        </div>
-        <div class="card">
+        </article>
+        <article class="card">
           <img
             class="card__image"
             src="./images/Vanoise.png"
@@ -139,16 +139,14 @@
           />
           <div class="card__info">
             <h2 class="card__title">Vanoise National Park</h2>
-            <button class="card__like-button button">
-              <img
-                class="card__like-image"
-                src="./images/like-button.svg"
-                alt="heart"
-              />
-            </button>
+            <button
+              aria-label="like"
+              class="card__like-button button"
+              type="button"
+            ></button>
           </div>
-        </div>
-        <div class="card">
+        </article>
+        <article class="card">
           <img
             class="card__image"
             src="./images/Lago.png"
@@ -156,15 +154,13 @@
           />
           <div class="card__info">
             <h2 class="card__title">Lago di Braies</h2>
-            <button class="card__like-button button">
-              <img
-                class="card__like-image"
-                src="./images/like-button.svg"
-                alt="heart"
-              />
-            </button>
+            <button
+              aria-label="like"
+              class="card__like-button button"
+              type="button"
+            ></button>
           </div>
-        </div>
+        </article>
       </section>
     </main>
     <footer class="footer">

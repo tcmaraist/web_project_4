@@ -1,7 +1,6 @@
 .modal__body {
     position: relative;
     width: 282px;
-    padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;

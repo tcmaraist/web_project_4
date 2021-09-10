@@ -1,11 +1,13 @@
 .profile {
     margin: 0 auto;
-    padding: 0 10px 0;
+    padding: 38.25px 10px 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     box-sizing: border-box;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 @media screen and (min-width: 550px){

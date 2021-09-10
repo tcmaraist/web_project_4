@@ -11,7 +11,3 @@
     background-color: #00000050;
     z-index: 1;
 }
-
-.modal_is-open {
-   display: flex; 
-}

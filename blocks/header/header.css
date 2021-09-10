@@ -1,19 +1,20 @@
 .header {
     margin: 0 auto;
-    padding: 28px 0 38.25px;
+    padding: 28px 0 32px 27px;
     max-width: 320px;
     box-sizing: border-box;
+    border-bottom: 1px solid #545454;
 }
 
 @media screen and (min-width: 550px) {
     .header {
+        padding: 45px 0 41px;
         max-width: 500px;
     }
 }
 
 @media screen and (min-width: 920px) {
     .header {
-        padding: 45px 0 36.25px;
         max-width: 880px;
     }
 }
