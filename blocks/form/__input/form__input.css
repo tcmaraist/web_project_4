@@ -8,8 +8,17 @@
     line-height: 1.2;
 }
 
+.form__input:first-of-type {
+    padding-top: 46px;
+}
+
 @media screen and (min-width: 550px) {
     .form__input {
         max-width: 358px;
     }
+
+    .form__input:first-of-type {
+        padding-top: 26px;
+    }
+    
 }
