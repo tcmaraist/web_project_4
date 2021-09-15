@@ -1,3 +1,6 @@
+//Wrappers
+const cardTemplate = document.querySelector('#cardTemplate').content.querySelector('.card');
+const cards = document.querySelector('.cards');
 /*
 ** Query Selectors
 */
@@ -44,3 +47,15 @@ function updateProfile(event){
 form.addEventListener('submit', updateProfile, false);
 editProfileButton.addEventListener('click', openModal, false);
 closeButton.addEventListener('click', closeModal, false);
+
+// Actions
+initialCards.forEach((card) => {
+  // use template
+  const cardEl = cardTemplate.cloneNode(true);
+  //set the title
+  cardEl.querySelector('.card__title').textContent = card.title;
+  //set the image
+  cardEl.querySelector('.card__image').style.backgroundImage = `url(${card.image})`;
+  //append it to the list
+  cards.append(cardEl);
+});
