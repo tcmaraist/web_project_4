@@ -1,9 +1,12 @@
 .modal {
-    display: none;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s linear 0.5s, opacity 0.5s linear;
     align-items: center;
     justify-content: center;
     position: fixed;
     box-sizing: border-box;
+    display: flex;
     top: 0;
     bottom: 0;
     left: 0;
