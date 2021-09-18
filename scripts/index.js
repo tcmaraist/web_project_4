@@ -1,4 +1,4 @@
-//Wrappers
+// Wrappers
 const editModal = document.querySelector('.modal_type_edit');
 const editForm = editModal.querySelector('.form');
 const addModal = document.querySelector('.modal_type_add');
@@ -7,6 +7,7 @@ const previewModal = document.querySelector('.modal_type_preview');
 
 const cards = document.querySelector('.cards');
 const cardTemplate = document.querySelector('#cardTemplate').content.querySelector('.card');
+const previewModalTitle = document.querySelector('.modal__title');
 
 
 // Buttons
@@ -23,18 +24,13 @@ const previewModalImage = previewModal.querySelector('.modal__image');
 
 const cardDeleteButton = document.querySelector('.card__delete-button');
 
-
-//Form data
+// Form data
 const nameInput = editForm.querySelector('.form__input_type_name');
 const aboutInput = editForm.querySelector('.form__input_type_about');
 const addTitleValue = document.querySelector('.form__input_type_title');
 const addImageUrlValue = addForm.querySelector('.form__input_type_image-url');
 
-/*
-** Functions
-*/
-
-
+// Functions
 function prefillEditForm(modalWindow) {
   if (!modalWindow.classList.contains('modal_is-open')) {
     nameInput.value = profileName.textContent;
@@ -54,9 +50,11 @@ function editFormSubmitHandler(event){
     toggleModalWindow(editModal);
 }
 
-//DO THIS TO GET CAPTION
 function showPreview(card) {
   previewModalImage.src = card.image;
+  previewModalImage.alt = `Image of ${cardEl.title}`;
+
+  previewModalTitle.textContent = card.title;
   toggleModalWindow(previewModal);
 }
 
@@ -96,9 +94,7 @@ function addFormSubmitHandler(event) {
   toggleModalWindow(addModal);
 }
 
-/*
-**  Event Listeners
-*/
+// Event Listeners
 
 editForm.addEventListener('submit', editFormSubmitHandler);
 editProfileButton.addEventListener('click', () => {
