@@ -21,6 +21,9 @@ const addModalCloseButton = addModal.querySelector('.modal__close-button');
 const previewModalCloseButton = previewModal.querySelector('.modal__close-button');
 const previewModalImage = previewModal.querySelector('.modal__image');
 
+const cardDeleteButton = document.querySelector('.card__delete-button');
+
+
 //Form data
 const nameInput = editForm.querySelector('.form__input_type_name');
 const aboutInput = editForm.querySelector('.form__input_type_about');
@@ -30,6 +33,8 @@ const addImageUrlValue = addForm.querySelector('.form__input_type_image-url');
 /*
 ** Functions
 */
+
+
 function prefillEditForm(modalWindow) {
   if (!modalWindow.classList.contains('modal_is-open')) {
     nameInput.value = profileName.textContent;
@@ -55,11 +60,23 @@ function showPreview(card) {
   toggleModalWindow(previewModal);
 }
 
+function toggleLikeButton(evt) {
+  evt.target.classList.toggle('card__like-button_type_active');
+}
+
+
 function generateCards(card) {
   const cardEl = cardTemplate.cloneNode(true);
+  const cardLikeButton = cardEl.querySelector('.card__like-button');
+  const cardDeleteButton = cardEl.querySelector('.card__delete-button');
   const cardImage = cardEl.querySelector('.card__image');
 
+
   cardEl.querySelector('.card__title').textContent = card.title;
+  cardLikeButton.addEventListener('click', toggleLikeButton);
+  cardDeleteButton.addEventListener('click', function() {
+    cardEl.remove();
+  });
   cardImage.style.backgroundImage = `url(${card.image})`;
 
   cardImage.addEventListener('click', () => showPreview(card));
