@@ -1,4 +1,4 @@
-const isValid = (inputEl) => inputEl.validity.valid;
+ const isValid = (inputEl) => inputEl.validity.valid;
 
 const checkInputValidity = (formEl, inputEl, settings) => {
     const errorEl = formEl.querySelector(`#${inputEl.id}-error`);
@@ -69,3 +69,5 @@ enableValidation({
     inputErrorClass: "form__input_type_error",
     errorClass: "form__error_visible"
   });
+
+  
