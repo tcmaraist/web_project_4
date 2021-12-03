@@ -1,16 +1,5 @@
 import FormValidator from "./FormValidator.js";
-
-console.log(FormValidator);
-
-const validationSettings = {
-  inputSelector: ".form__input",
-    submitButtonSelector: ".form__save-button",
-    inactiveButtonClass: "form__save-button_disabled",
-    inputErrorClass: "form__input_type_error",
-    errorClass: "form__error_visible",
-};
-
-
+import Card from "./Card.js";
 
 // Functions
 function openModal(modal) {
@@ -94,21 +83,42 @@ function addFormSubmitHandler(event) {
 
 // Event Listeners
 editForm.addEventListener('submit', editFormSubmitHandler);
+
 editProfileButton.addEventListener('click', () => {
   prefillEditForm(editModal);
   openModal(editModal);
 });
+
 editProfileCloseButton.addEventListener('click', () => closeModal(editModal));
 
 addForm.addEventListener('submit', addFormSubmitHandler);
+
 addCardButton.addEventListener('click', () => openModal(addModal));
+
 addModalCloseButton.addEventListener('click', () => closeModal(addModal));
 
 previewModalCloseButton.addEventListener('click', () => closeModal(previewModal));
 
 // Actions
 initialCards.forEach((card) => {
-  cardEl = generateCard(card);
+  const cardEl = generateCard(card);
 
   cards.append(cardEl);
 });
+
+const addFormEl = addForm.querySelector('.form');
+const editFormEl = editForm.querySelector('.form');
+
+const validationSettings = {
+  inputSelector: ".form__input",
+    submitButtonSelector: ".form__save-button",
+    inactiveButtonClass: "form__save-button_disabled",
+    inputErrorClass: "form__input_type_error",
+    errorClass: "form__error_visible",
+};
+
+const addFormValidator = new FormValidator(validationSettings, addFormEl);
+addFormValidator.enableValidation();
+
+const editFormValidator = new FormValidator(validationSettings, editFormEl);
+editFormValidator.enableValidation();
