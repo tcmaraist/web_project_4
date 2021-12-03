@@ -1,4 +1,4 @@
- const isValid = (inputEl) => inputEl.validity.valid;
+/* const isValid = (inputEl) => inputEl.validity.valid;
 
 const checkInputValidity = (formEl, inputEl, settings) => {
     const errorEl = formEl.querySelector(`#${inputEl.id}-error`);
