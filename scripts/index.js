@@ -1,28 +1,12 @@
 import FormValidator from "./FormValidator.js";
 import Card from "./Card.js";
 
+
 // Functions
-function openModal(modal) {
-  document.addEventListener("click", closeModalClickHandler);
-  document.addEventListener("keydown", closeModalEscapeHandler);
-  modal.classList.add("modal_is-open");
-}
-
-function closeModal(modal) {
-  document.removeEventListener("click", closeModalClickHandler);
-  document.removeEventListener("keydown", closeModalEscapeHandler);
-  modal.classList.remove("modal_is-open");
-}
-
 function closeModalClickHandler(evt) {
   evt.target.classList.remove("modal_is-open");
 }
 
-function closeModalEscapeHandler(evt) {
-  if (evt.key === "Escape") {
-    return closeModal(document.querySelector(".modal_is-open"));
-  }
-}
 
 function prefillEditForm(modalWindow) {
     nameInput.value = profileName.textContent;
@@ -37,37 +21,6 @@ function editFormSubmitHandler(event){
     closeModal(editModal);
 }
 
-function showPreview(card) {
-  previewModalImage.src = card.image;
-  previewModalImage.alt = `Image of ${cardEl.title}`;
-
-  previewModalTitle.textContent = card.title;
-  openModal(previewModal);
-}
-
-function toggleLikeButton(evt) {
-  evt.target.classList.toggle('card__like-button_type_active');
-}
-
-
-function generateCard(card) {
-  const cardEl = cardTemplate.cloneNode(true);
-  const cardLikeButton = cardEl.querySelector('.card__like-button');
-  const cardDeleteButton = cardEl.querySelector('.card__delete-button');
-  const cardImage = cardEl.querySelector('.card__image');
-
-
-  cardEl.querySelector('.card__title').textContent = card.title;
-  cardLikeButton.addEventListener('click', toggleLikeButton);
-  cardDeleteButton.addEventListener('click', function() {
-    cardEl.remove();
-  });
-  cardImage.style.backgroundImage = `url(${card.image})`;
-
-  cardImage.addEventListener('click', () => showPreview(card));
-
-  return cardEl;
-}
 
 function addFormSubmitHandler(event) {
   event.preventDefault();
@@ -80,6 +33,13 @@ function addFormSubmitHandler(event) {
   cards.prepend(cardEl);
   closeModal(addModal);
 }
+
+/*  NEEDS renderCard const?
+const renderCard = (data, wrap) => {
+    const card = new Card(data, '#cardTemplate').generateCard();
+    wrap.prepend(card);
+};
+*/
 
 // Event Listeners
 editForm.addEventListener('submit', editFormSubmitHandler);

@@ -2,17 +2,23 @@ const previewModal = document.querySelector('.modal_type_preview');
 const previewModalImage = previewModal.querySelector('.modal__image');
 const previewModalTitle = document.querySelector('.modal__title');
 
-function openModal(modal) {
+const closeModalEscapeHandler = (evt) => {
+    if (evt.key === "Escape") {
+      return closeModal(document.querySelector(".modal_is-open"));
+    }
+  };
+
+const openModal = (modal) => {
     document.addEventListener("click", closeModalClickHandler);
     document.addEventListener("keydown", closeModalEscapeHandler);
     modal.classList.add("modal_is-open");
-  }
+  };
   
-function closeModal(modal) {
+const closeModal = (modal) => {
     document.removeEventListener("click", closeModalClickHandler);
     document.removeEventListener("keydown", closeModalEscapeHandler);
     modal.classList.remove("modal_is-open");
-  }
+  };
 
 class Card {
     constructor(data, cardSelector) {

@@ -61,7 +61,7 @@ enableValidation() {
     this._form.addEventListener('submit', (evt) => {
         evt.preventDefault();
     });
-    setupEventListeners(formEl, otherSettings);
+    this._setEventListeners();
 }
 };
 

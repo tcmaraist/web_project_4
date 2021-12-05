@@ -10,7 +10,6 @@ const cards = document.querySelector('.cards');
 const cardTemplate = document.querySelector('#cardTemplate').content.querySelector('.card');
 const previewModalTitle = document.querySelector('.modal__title');
 
-
 // Buttons
 const editProfileButton = document.querySelector('.profile__edit-button');
 const editProfileCloseButton = editModal.querySelector('.modal__close-button');
