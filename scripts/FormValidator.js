@@ -11,7 +11,7 @@ class FormValidator {
 
 
 _showInputError(inputEl, validationMessage) {
-    const errorEl = this._element.querySelector(`#${inputEl.id}-error`);
+    const errorEl = this._form.querySelector(`#${inputEl.id}-error`);
 
     inputEl.classList.add(this._inputErrorClass);
     errorEl.innerText = validationMessage;
@@ -19,12 +19,22 @@ _showInputError(inputEl, validationMessage) {
 }
 
 _hideInputError(inputEl) {
-    const errorEl = this._querySelector(`#${inputEl.id}-error`);
+    const errorEl = this._form.querySelector(`#${inputEl.id}-error`);
 
     inputEl.classList.remove(this._inputErrorClass);
     errorEl.innerText = '';
     errorEl.classList.remove(this._errorClass);
 }
+
+_checkInputValidity(inputEl) {
+    if (!inputEl.validity.valid) {
+        return this._showInputError(inputEl);
+        // if input is invalid, show error message
+    }
+    this._hideInputError(inputEl);
+    // if it is valid, remove all error messages. enable submit button
+    }
+
 
 _hasInvalidInput(inputList) {
     return !inputList.every(inputEl => {
@@ -48,11 +58,11 @@ _setEventListeners() {
     this._inputList = [...this._form.querySelectorAll(this._inputSelector)];
     this._buttonEl = this._form.querySelector(this._submitButtonSelector);
 
-    inputList.forEach(inputEl => {
+    this._inputList.forEach(inputEl => {
         inputEl.addEventListener('input', (evt) => {
             // check if the input is valid
-            checkInputValidity(this._form, inputEl, otherSettings);
-            toggleButtonState(inputList, buttonEl, otherSettings)
+            this._checkInputValidity(inputEl);
+            this._toggleButtonState(inputEl, this._buttonEl)
         });
     });
 }

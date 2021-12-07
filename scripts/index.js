@@ -1,6 +1,65 @@
 import FormValidator from "./FormValidator.js";
 import Card from "./Card.js";
 
+// Data
+const initialCards = [
+  {
+    title: "Yosemite Valley",
+    image: "https://code.s3.yandex.net/web-code/yosemite.jpg"
+  },
+  {
+    title: "Lake Louise",
+    image: "https://code.s3.yandex.net/web-code/lake-louise.jpg"
+  },
+  {
+    title: "Bald Mountains",
+    image: "https://code.s3.yandex.net/web-code/bald-mountains.jpg"
+  },
+  {
+    title: "Latemar",
+    image: "https://code.s3.yandex.net/web-code/latemar.jpg"
+  },
+  {
+    title: "Vanoise National Park",
+    image: "https://code.s3.yandex.net/web-code/vanoise.jpg"
+  },
+  {
+    title: "Lago di Braies",
+    image: "https://code.s3.yandex.net/web-code/lago.jpg"
+  }
+];
+
+// Wrappers
+const editModal = document.querySelector('.modal_type_edit');
+const editForm = editModal.querySelector('.form');
+const addModal = document.querySelector('.modal_type_add');
+const addForm = addModal.querySelector('.form');
+const previewModal = document.querySelector('.modal_type_preview');
+const modal = document.querySelector('.modal');
+
+const cards = document.querySelector('.cards');
+const cardTemplate = document.querySelector('#cardTemplate').content.querySelector('.card');
+const previewModalTitle = document.querySelector('.modal__title');
+
+// Buttons
+const editProfileButton = document.querySelector('.profile__edit-button');
+const editProfileCloseButton = editModal.querySelector('.modal__close-button');
+const profileName = document.querySelector('.profile__name');
+const profileAbout = document.querySelector('.profile__about');
+
+const addCardButton = document.querySelector('.profile__add-button');
+const addModalCloseButton = addModal.querySelector('.modal__close-button');
+
+const previewModalCloseButton = previewModal.querySelector('.modal__close-button');
+const previewModalImage = previewModal.querySelector('.modal__image');
+
+const cardDeleteButton = document.querySelector('.card__delete-button');
+
+// Form data
+const nameInput = editForm.querySelector('.form__input_type_name');
+const aboutInput = editForm.querySelector('.form__input_type_about');
+const addTitleValue = document.querySelector('.form__input_type_title');
+const addImageUrlValue = addForm.querySelector('.form__input_type_image-url');
 
 // Functions
 function closeModalClickHandler(evt) {
@@ -21,6 +80,34 @@ function editFormSubmitHandler(event){
     closeModal(editModal);
 }
 
+const closeModalEscapeHandler = (evt) => {
+  if (evt.key === "Escape") {
+    return closeModal(document.querySelector(".modal_is-open"));
+  }
+};
+
+const openModal = (modal) => {
+  document.addEventListener("click", closeModalClickHandler);
+  document.addEventListener("keydown", closeModalEscapeHandler);
+  modal.classList.add("modal_is-open");
+};
+
+const closeModal = (modal) => {
+  document.removeEventListener("click", closeModalClickHandler);
+  document.removeEventListener("keydown", closeModalEscapeHandler);
+  modal.classList.remove("modal_is-open");
+};
+
+function generateCard() {
+   const element = getTemplate();
+  setEventListeners();
+
+  element.querySelector('.card__image').style.backgroundImage = `url(${this._link})`;
+  element.querySelector('.card__title').textContent = this._name;
+
+  return this._element;
+}
+
 
 function addFormSubmitHandler(event) {
   event.preventDefault();
@@ -34,12 +121,7 @@ function addFormSubmitHandler(event) {
   closeModal(addModal);
 }
 
-/*  NEEDS renderCard const?
-const renderCard = (data, wrap) => {
-    const card = new Card(data, '#cardTemplate').generateCard();
-    wrap.prepend(card);
-};
-*/
+
 
 // Event Listeners
 editForm.addEventListener('submit', editFormSubmitHandler);
@@ -61,13 +143,13 @@ previewModalCloseButton.addEventListener('click', () => closeModal(previewModal)
 
 // Actions
 initialCards.forEach((card) => {
-  const cardEl = generateCard(card);
+  const cardEl = new Card(card, '#cardTemplate').generateCard();
 
   cards.append(cardEl);
 });
 
-const addFormEl = addForm.querySelector('.form');
-const editFormEl = editForm.querySelector('.form');
+const addFormEl = document.querySelector('.modal_type_add');
+const editFormEl = document.querySelector('.modal_type_edit');
 
 const validationSettings = {
   inputSelector: ".form__input",
