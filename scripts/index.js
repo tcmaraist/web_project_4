@@ -98,15 +98,47 @@ const closeModal = (modal) => {
   modal.classList.remove("modal_is-open");
 };
 
-function generateCard() {
-   const element = getTemplate();
-  setEventListeners();
+const toggleLikeButton = (evt) => { 
 
-  element.querySelector('.card__image').style.backgroundImage = `url(${this._link})`;
-  element.querySelector('.card__title').textContent = this._name;
+  evt.target.classList.toggle('card__like-button_type_active'); 
 
-  return this._element;
-}
+} 
+
+function generateCard(card) { 
+
+  const cardEl = cardTemplate.cloneNode(true); 
+
+  const cardLikeButton = cardEl.querySelector('.card__like-button'); 
+
+  const cardDeleteButton = cardEl.querySelector('.card__delete-button'); 
+
+  const cardImage = cardEl.querySelector('.card__image'); 
+
+ 
+
+ 
+
+  cardEl.querySelector('.card__title').textContent = card.title; 
+
+  cardLikeButton.addEventListener('click', toggleLikeButton); 
+
+  cardDeleteButton.addEventListener('click', function() { 
+
+    cardEl.remove(); 
+
+  }); 
+
+  cardImage.style.backgroundImage = `url(${card.image})`; 
+
+ 
+
+  cardImage.addEventListener('click', () => showPreview(card)); 
+
+ 
+
+  return cardEl; 
+
+} 
 
 
 function addFormSubmitHandler(event) {

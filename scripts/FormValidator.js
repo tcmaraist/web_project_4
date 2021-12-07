@@ -36,8 +36,8 @@ _checkInputValidity(inputEl) {
     }
 
 
-_hasInvalidInput(inputList) {
-    return !inputList.every(inputEl => {
+_hasInvalidInput() {
+    return this._inputList.every(inputEl => {
         return inputEl.validity.valid === true;
     })
 }
@@ -45,11 +45,11 @@ _hasInvalidInput(inputList) {
 _toggleButtonState(inputList, buttonEl) {
     if(this._hasInvalidInput(inputList)) {
         // button should unlock
-        buttonEl.classList.remove(inactiveButtonClass)
+        buttonEl.classList.remove(this._inactiveButtonClass)
         buttonEl.disabled = true;
     } else {
         // button should lock
-        buttonEl.classList.add(inactiveButtonClass)
+        buttonEl.classList.add(this._inactiveButtonClass)
         buttonEl.disabled = false;
     }
 };

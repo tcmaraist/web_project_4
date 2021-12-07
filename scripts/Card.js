@@ -50,10 +50,10 @@ class Card {
     };
 
     _setEventListeners() {
-        this._element.querySelector(".card__like-button").addEventListener('click', () => {this.handleLike()});
+        this._element.querySelector(".card__like-button").addEventListener('click', () => {this._handleLike()});
         this._element.querySelector(".card__delete-button").addEventListener('click', () => {this._handleDelete()});
       
-        this._element.querySelector(".card__image").addEventListener('click', () => {this._handlePreview});
+        this._element.querySelector(".card__image").addEventListener('click', () => {this._handlePreviewPicture});
     };
 
     generateCard() {
