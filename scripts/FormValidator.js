@@ -14,7 +14,7 @@ _showInputError(inputEl, validationMessage) {
     const errorEl = this._form.querySelector(`#${inputEl.id}-error`);
 
     inputEl.classList.add(this._inputErrorClass);
-    errorEl.innerText = validationMessage;
+    errorEl.innerText = inputEl.validationMessage;
     errorEl.classList.add(this._errorClass);
 }
 
@@ -37,20 +37,21 @@ _checkInputValidity(inputEl) {
 
 
 _hasInvalidInput() {
-    return this._inputList.every(inputEl => {
+    return !this._inputList.every(inputEl => {
         return inputEl.validity.valid === true;
     })
 }
 
-_toggleButtonState(inputList, buttonEl) {
-    if(this._hasInvalidInput(inputList)) {
+_toggleButtonState() {
+    if(this._hasInvalidInput(this._inputList)) {
         // button should unlock
-        buttonEl.classList.remove(this._inactiveButtonClass)
-        buttonEl.disabled = true;
+        this._buttonEl.classList.add(this._inactiveButtonClass)
+        this._buttonEl.disabled = true;
     } else {
         // button should lock
-        buttonEl.classList.add(this._inactiveButtonClass)
-        buttonEl.disabled = false;
+        
+        this._buttonEl.classList.remove(this._inactiveButtonClass)
+        this._buttonEl.disabled = false;
     }
 };
 
@@ -62,7 +63,7 @@ _setEventListeners() {
         inputEl.addEventListener('input', (evt) => {
             // check if the input is valid
             this._checkInputValidity(inputEl);
-            this._toggleButtonState(inputEl, this._buttonEl)
+            this._toggleButtonState()
         });
     });
 }
@@ -72,6 +73,10 @@ enableValidation() {
         evt.preventDefault();
     });
     this._setEventListeners();
+}
+
+resetForm() {
+    this._form.reset();
 }
 };
 

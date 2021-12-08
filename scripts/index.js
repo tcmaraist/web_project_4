@@ -78,6 +78,7 @@ function editFormSubmitHandler(event){
     profileAbout.textContent = aboutInput.value;
 
     closeModal(editModal);
+    editFormValidator.resetForm();
 }
 
 const closeModalEscapeHandler = (evt) => {
@@ -105,39 +106,21 @@ const toggleLikeButton = (evt) => {
 } 
 
 function generateCard(card) { 
-
   const cardEl = cardTemplate.cloneNode(true); 
-
   const cardLikeButton = cardEl.querySelector('.card__like-button'); 
-
   const cardDeleteButton = cardEl.querySelector('.card__delete-button'); 
-
   const cardImage = cardEl.querySelector('.card__image'); 
 
- 
-
- 
-
   cardEl.querySelector('.card__title').textContent = card.title; 
-
   cardLikeButton.addEventListener('click', toggleLikeButton); 
-
   cardDeleteButton.addEventListener('click', function() { 
-
     cardEl.remove(); 
-
   }); 
 
   cardImage.style.backgroundImage = `url(${card.image})`; 
-
- 
-
   cardImage.addEventListener('click', () => showPreview(card)); 
-
- 
-
+  
   return cardEl; 
-
 } 
 
 
@@ -151,6 +134,7 @@ function addFormSubmitHandler(event) {
   const cardEl = generateCard(card);
   cards.prepend(cardEl);
   closeModal(addModal);
+  addFormValidator.resetForm();
 }
 
 
@@ -180,8 +164,8 @@ initialCards.forEach((card) => {
   cards.append(cardEl);
 });
 
-const addFormEl = document.querySelector('.modal_type_add');
-const editFormEl = document.querySelector('.modal_type_edit');
+const addFormEl = addModal.querySelector('.form');
+const editFormEl = editModal.querySelector('.form');
 
 const validationSettings = {
   inputSelector: ".form__input",

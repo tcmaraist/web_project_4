@@ -8,6 +8,10 @@ const closeModalEscapeHandler = (evt) => {
     }
   };
 
+const closeModalClickHandler = (evt) => {
+    evt.target.classList.remove("modal_is-open");
+  }
+
 const openModal = (modal) => {
     document.addEventListener("click", closeModalClickHandler);
     document.addEventListener("keydown", closeModalEscapeHandler);
@@ -42,6 +46,7 @@ class Card {
     };
 
     _handlePreviewPicture() {
+        console.log("hi")
         openModal(previewModal); 
         previewModalImage.src = this._link;
         previewModalImage.alt = `Image of ${this._name}`;
@@ -53,7 +58,7 @@ class Card {
         this._element.querySelector(".card__like-button").addEventListener('click', () => {this._handleLike()});
         this._element.querySelector(".card__delete-button").addEventListener('click', () => {this._handleDelete()});
       
-        this._element.querySelector(".card__image").addEventListener('click', () => {this._handlePreviewPicture});
+        this._element.querySelector(".card__image").addEventListener('click', () => {this._handlePreviewPicture()});
     };
 
     generateCard() {
