@@ -99,6 +99,13 @@ const closeModal = (modal) => {
   modal.classList.remove("modal_is-open");
 };
 
+function showPreview(card) {
+  previewModalImage.src = card.image; 
+  previewModalImage.alt = `Image of ${cardEl.title}`; 
+  previewModalTitle.textContent = card.title; 
+  openModal(previewModal); 
+}
+
 const toggleLikeButton = (evt) => { 
 
   evt.target.classList.toggle('card__like-button_type_active'); 
