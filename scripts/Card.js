@@ -46,7 +46,6 @@ class Card {
     };
 
     _handlePreviewPicture() {
-        console.log("hi")
         openModal(previewModal); 
         previewModalImage.src = this._link;
         previewModalImage.alt = `Image of ${this._name}`;
