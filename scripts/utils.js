@@ -21,4 +21,4 @@ const closeModalClickHandler = (evt) => {
   }
 
 
-export { openModal, closeModal, closeModalEscapeHandler, closeModalClickHandler }
+export { openModal, closeModal }
