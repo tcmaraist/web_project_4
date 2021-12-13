@@ -1,33 +1,7 @@
+import initialCards from "./data.js";
+import { openModal, closeModal, closeModalEscapeHandler, closeModalClickHandler } from "./utils.js"
 import FormValidator from "./FormValidator.js";
 import Card from "./Card.js";
-
-// Data
-const initialCards = [
-  {
-    title: "Yosemite Valley",
-    image: "https://code.s3.yandex.net/web-code/yosemite.jpg"
-  },
-  {
-    title: "Lake Louise",
-    image: "https://code.s3.yandex.net/web-code/lake-louise.jpg"
-  },
-  {
-    title: "Bald Mountains",
-    image: "https://code.s3.yandex.net/web-code/bald-mountains.jpg"
-  },
-  {
-    title: "Latemar",
-    image: "https://code.s3.yandex.net/web-code/latemar.jpg"
-  },
-  {
-    title: "Vanoise National Park",
-    image: "https://code.s3.yandex.net/web-code/vanoise.jpg"
-  },
-  {
-    title: "Lago di Braies",
-    image: "https://code.s3.yandex.net/web-code/lago.jpg"
-  }
-];
 
 // Wrappers
 const editModal = document.querySelector('.modal_type_edit');
@@ -62,11 +36,6 @@ const addTitleValue = document.querySelector('.form__input_type_title');
 const addImageUrlValue = addForm.querySelector('.form__input_type_image-url');
 
 // Functions
-function closeModalClickHandler(evt) {
-  evt.target.classList.remove("modal_is-open");
-}
-
-
 function prefillEditForm(modalWindow) {
     nameInput.value = profileName.textContent;
     aboutInput.value = profileAbout.textContent;
@@ -81,55 +50,6 @@ function editFormSubmitHandler(event){
     editFormValidator.resetForm();
 }
 
-const closeModalEscapeHandler = (evt) => {
-  if (evt.key === "Escape") {
-    return closeModal(document.querySelector(".modal_is-open"));
-  }
-};
-
-const openModal = (modal) => {
-  document.addEventListener("click", closeModalClickHandler);
-  document.addEventListener("keydown", closeModalEscapeHandler);
-  modal.classList.add("modal_is-open");
-};
-
-const closeModal = (modal) => {
-  document.removeEventListener("click", closeModalClickHandler);
-  document.removeEventListener("keydown", closeModalEscapeHandler);
-  modal.classList.remove("modal_is-open");
-};
-
-function showPreview(card) {
-  previewModalImage.src = card.image; 
-  previewModalImage.alt = `Image of ${cardEl.title}`; 
-  previewModalTitle.textContent = card.title; 
-  openModal(previewModal); 
-}
-
-const toggleLikeButton = (evt) => { 
-
-  evt.target.classList.toggle('card__like-button_type_active'); 
-
-} 
-
-function generateCard(card) { 
-  const cardEl = cardTemplate.cloneNode(true); 
-  const cardLikeButton = cardEl.querySelector('.card__like-button'); 
-  const cardDeleteButton = cardEl.querySelector('.card__delete-button'); 
-  const cardImage = cardEl.querySelector('.card__image'); 
-
-  cardEl.querySelector('.card__title').textContent = card.title; 
-  cardLikeButton.addEventListener('click', toggleLikeButton); 
-  cardDeleteButton.addEventListener('click', function() { 
-    cardEl.remove(); 
-  }); 
-
-  cardImage.style.backgroundImage = `url(${card.image})`; 
-  cardImage.addEventListener('click', () => showPreview(card)); 
-  
-  return cardEl; 
-} 
-
 
 function addFormSubmitHandler(event) {
   event.preventDefault();
@@ -138,13 +58,11 @@ function addFormSubmitHandler(event) {
     image: addImageUrlValue.value,
   };
 
-  const cardEl = generateCard(card);
+  const cardEl = new Card(card, '#cardTemplate').generateCard();
   cards.prepend(cardEl);
   closeModal(addModal);
   addFormValidator.resetForm();
 }
-
-
 
 // Event Listeners
 editForm.addEventListener('submit', editFormSubmitHandler);
@@ -171,6 +89,7 @@ initialCards.forEach((card) => {
   cards.append(cardEl);
 });
 
+// Validation
 const addFormEl = addModal.querySelector('.form');
 const editFormEl = editModal.querySelector('.form');
 
