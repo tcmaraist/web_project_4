@@ -1,8 +1,9 @@
-import { openModal } from "./utils.js"
+import { openModal, closeModal } from "./utils.js"
 
 const previewModal = document.querySelector('.modal_type_preview');
 const previewModalImage = previewModal.querySelector('.modal__image');
 const previewModalTitle = previewModal.querySelector('.modal__title');
+const previewModalCloseButton = previewModal.querySelector('.modal__close-button');
 
 
 class Card {
@@ -39,7 +40,7 @@ class Card {
         this._element.querySelector(".card__delete-button").addEventListener('click', () => {this._handleDelete()});
       
         this._element.querySelector(".card__image").addEventListener('click', () => {this._handlePreviewPicture()});
-
+        previewModalCloseButton.addEventListener('click', () => closeModal(previewModal));
     };
 
     generateCard() {
