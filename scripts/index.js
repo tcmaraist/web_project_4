@@ -1,5 +1,6 @@
 import initialCards from "./data.js";
 import { openModal, closeModal } from "./utils.js"
+import { previewModal } from "./Card.js";
 import FormValidator from "./FormValidator.js";
 import Card from "./Card.js";
 
@@ -22,6 +23,7 @@ const profileAbout = document.querySelector('.profile__about');
 
 const addCardButton = document.querySelector('.profile__add-button');
 const addModalCloseButton = addModal.querySelector('.modal__close-button');
+const previewModalCloseButton = previewModal.querySelector('.modal__close-button');
 
 // Form data
 const nameInput = editForm.querySelector('.form__input_type_name');
@@ -73,6 +75,8 @@ addForm.addEventListener('submit', addFormSubmitHandler);
 addCardButton.addEventListener('click', () => openModal(addModal));
 
 addModalCloseButton.addEventListener('click', () => closeModal(addModal));
+
+previewModalCloseButton.addEventListener('click', () => closeModal(previewModal));
 
 
 // Actions
