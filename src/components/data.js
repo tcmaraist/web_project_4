@@ -1,5 +1,5 @@
 // Data
-const initialCards = [
+export default const initialCards = [
     {
       title: "Yosemite Valley",
       image: "https://code.s3.yandex.net/web-code/yosemite.jpg"
@@ -26,4 +26,7 @@ const initialCards = [
     }
   ];
 
-  export default initialCards;
+export const selectors = {
+  cardSections: '.cards',
+  cardTemplate: '#cardTemplate',
+}
