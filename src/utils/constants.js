@@ -1,4 +1,7 @@
 // Data
+
+export const ESC_KEYCODE = 27;
+
 export default const initialCards = [
     {
       title: "Yosemite Valley",
@@ -27,6 +30,7 @@ export default const initialCards = [
   ];
 
 export const selectors = {
-  cardSections: '.cards',
+  cardSections: 'cards',
   cardTemplate: '#cardTemplate',
+  previewPopup: 'modal__type_preview' // maybe modal__body_type_preview //
 }
