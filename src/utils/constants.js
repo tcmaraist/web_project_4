@@ -30,7 +30,11 @@ export const initialCards = [
 ];
 
 export const selectors = {
-  cardSection: "cards",
+  cardSection: ".cards",
   cardTemplate: "#cardTemplate",
-  previewPopup: "modal__type_preview", // maybe modal__body_type_preview //
+  previewPopup: ".modal_type_preview",
+};
+
+export const profileConstants = {
+  profileModalSelector: ".profile__info",
 };
