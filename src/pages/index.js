@@ -3,16 +3,18 @@ import { initialCards, selectors } from "../utils/constants.js";
 import FormValidator from "../components/FormValidator.js";
 import Card from "../components/Card.js";
 import Section from "../components/Section.js";
-import PopupWithImages from "../components/PopupWithImages";
+import PopupWithImage from "../components/PopupWithImage.js";
 
-const CardPreviewPopup = new PopupWithImages(selectors.previewPopup);
+// Create instances of the classes
+
+const CardPreviewPopup = new PopupWithImage(selectors.previewPopup);
 const CardSection = new Section(
   {
-    renderer: (data) => {
-      const cardEl = newCard(
+    renderer: (item) => {
+      const cardEl = new Card(
         {
           data,
-          handleImageClick: (imgData) => {
+          handleCardClick: (imgData) => {
             CardPreviewPopup.open(imgData);
           },
         },
@@ -24,5 +26,22 @@ const CardSection = new Section(
   selectors.cardSection
 );
 
+/* const userInfo = new UserInfo({
+  nameSelector: ,
+  aboutSelector: ,
+});
+*/
+
+// initialize instances of the classes
 CardSection.renderItems(initialCards);
 CardPreviewPopup.setEventListeners();
+
+// all the rest
+editProfileButton.addEventListener("click", () => {
+  prefillEditForm(editModal);
+  openModal(editModal);
+});
+
+editProfileCloseButton.addEventListener("click", () => closeModal(editModal));
+
+addCardButton.addEventListener("click", () => openModal(addModal));
