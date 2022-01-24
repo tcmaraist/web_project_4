@@ -35,8 +35,6 @@ export const validationSettings = {
   errorClass: "form__error_visible",
 };
 
-export const ESC_KEYCODE = 27;
-
 export const addModal = document.querySelector(".modal_type_add");
 export const editModal = document.querySelector(".modal_type_edit");
 

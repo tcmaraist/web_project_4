@@ -1,8 +1,6 @@
 import "./index.css";
 import {
   initialCards,
-  profileConstants,
-  addModalConstants,
   selectors,
   validationSettings,
   editFormEl,
@@ -23,12 +21,6 @@ import PopupWithForm from "../components/PopupWithForm.js";
 
 const editForm = editModal.querySelector(".form");
 
-const addForm = addModal.querySelector(".form");
-
-const modal = document.querySelector(".modal");
-
-const cards = document.querySelector(".cards");
-
 // Buttons
 const editProfileButton = document.querySelector(".profile__edit-button");
 const editProfileCloseButton = editModal.querySelector(".modal__close-button");
@@ -37,9 +29,7 @@ const profileAbout = document.querySelector(".profile__about");
 
 const addCardButton = document.querySelector(".profile__add-button");
 const addModalCloseButton = addModal.querySelector(".modal__close-button");
-const previewModalCloseButton = previewModal.querySelector(
-  ".modal__close-button"
-);
+const previewModalCloseButton = document.querySelector(".modal__close-button");
 
 //Functions
 function prefillEditForm(modalWindow) {
@@ -50,8 +40,6 @@ function prefillEditForm(modalWindow) {
 // Form data
 const nameInput = editForm.querySelector(".form__input_type_name");
 const aboutInput = editForm.querySelector(".form__input_type_about");
-const addTitleValue = document.querySelector(".form__input_type_title");
-const addImageUrlValue = addForm.querySelector(".form__input_type_image-url");
 
 // Create instances of the classes
 const CardPreviewPopup = new PopupWithImage(selectors.previewPopup);
@@ -90,14 +78,14 @@ const addPopup = new PopupWithForm({
   handleFormSubmission: (card) => {
     const cardEl = new Card(
       {
-        card,
+        data: card,
         handleCardClick: (imgData) => {
           CardPreviewPopup.open(imgData);
         },
       },
       selectors.cardTemplate
     );
-    CardSection.addItem(cardEl.generateCard);
+    CardSection.addItem(cardEl.generateCard());
   },
 });
 
@@ -127,3 +115,7 @@ editProfileCloseButton.addEventListener("click", () => closeModal(editModal));
 
 addCardButton.addEventListener("click", () => openModal(addModal));
 addModalCloseButton.addEventListener("click", () => closeModal(addModal));
+
+previewModalCloseButton.addEventListener("click", () =>
+  closeModal(previewModal)
+);
