@@ -1,7 +1,5 @@
 // Data
 
-export const ESC_KEYCODE = 27;
-
 export const initialCards = [
   {
     title: "Yosemite Valley",
@@ -29,12 +27,27 @@ export const initialCards = [
   },
 ];
 
+// Constants
+export const validationSettings = {
+  inputSelector: ".form__input",
+  submitButtonSelector: ".form__save-button",
+  inactiveButtonClass: "form__save-button_disabled",
+  inputErrorClass: "form__input_type_error",
+  errorClass: "form__error_visible",
+};
+
+export const ESC_KEYCODE = 27;
+
+export const addModal = document.querySelector(".modal_type_add");
+export const editModal = document.querySelector(".modal_type_edit");
+// Validation
+export const addFormEl = addModal.querySelector(".form");
+export const editFormEl = editModal.querySelector(".form");
+
 export const selectors = {
   cardSection: ".cards",
   cardTemplate: "#cardTemplate",
   previewPopup: ".modal_type_preview",
-};
-
-export const profileConstants = {
-  profileModalSelector: ".profile__info",
+  profileModalSelector: ".modal_type_edit",
+  addModalSelector: ".modal_type_add",
 };

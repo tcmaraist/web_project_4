@@ -6,12 +6,12 @@ export const previewModal = document.querySelector(".modal_type_preview");
 const previewModalImage = previewModal.querySelector(".modal__image");
 const previewModalTitle = previewModal.querySelector(".modal__title");
 class Card {
-  constructor({ data, handleImageClick }, cardSelector) {
+  constructor({ data, handleCardClick }, cardSelector) {
     this._name = data.title;
     this._link = data.image;
 
     this._cardSelector = cardSelector;
-    this._handleImageClick = this._handleImageClick;
+    this._handleCardClick = handleCardClick;
   }
 
   _getTemplate() {
@@ -32,14 +32,6 @@ class Card {
     this._element.remove();
   }
 
-  _handlePreviewPicture() {
-    openModal(previewModal);
-    previewModalImage.src = this._link;
-    previewModalImage.alt = `Image of ${this._name}`;
-
-    previewModalTitle.textContent = this._name;
-  }
-
   _setEventListeners() {
     this._element
       .querySelector(".card__like-button")
@@ -55,7 +47,7 @@ class Card {
     this._element
       .querySelector(".card__image")
       .addEventListener("click", () => {
-        this._handleImageClick({ link: this._link, text: this._text });
+        this._handleCardClick({ name: this._name, link: this._link });
       });
   }
 

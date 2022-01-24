@@ -2,7 +2,13 @@ import "./index.css";
 import {
   initialCards,
   profileConstants,
+  addModalConstants,
   selectors,
+  validationSettings,
+  editFormEl,
+  editModal,
+  addFormEl,
+  addModal,
 } from "../utils/constants.js";
 import { openModal, closeModal } from "../components/utils.js";
 import FormValidator from "../components/FormValidator.js";
@@ -14,9 +20,9 @@ import UserInfo from "../components/UserInfo.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 
 //constants
-const editModal = document.querySelector(".modal_type_edit");
+
 const editForm = editModal.querySelector(".form");
-const addModal = document.querySelector(".modal_type_add");
+
 const addForm = addModal.querySelector(".form");
 
 const modal = document.querySelector(".modal");
@@ -73,17 +79,43 @@ const userInfo = new UserInfo({
 });
 
 const editPopup = new PopupWithForm({
-  selector: profileConstants.profileModalSelector,
+  selector: selectors.profileModalSelector,
   handleFormSubmission: (data) => {
     userInfo.setUserInfo(data);
   },
 });
 
-const addPopup = new PopupWithImage({});
+const addPopup = new PopupWithForm({
+  selector: selectors.addModalSelector,
+  handleFormSubmission: (card) => {
+    const cardEl = new Card(
+      {
+        card,
+        handleCardClick: (imgData) => {
+          CardPreviewPopup.open(imgData);
+        },
+      },
+      selectors.cardTemplate
+    );
+    CardSection.addItem(cardEl.generateCard);
+  },
+});
+
+const addFormValidator = new FormValidator(validationSettings, addFormEl);
+addFormValidator.enableValidation();
+
+const editFormValidator = new FormValidator(validationSettings, editFormEl);
+editFormValidator.enableValidation();
 
 // initialize instances of the classes
 CardSection.renderItems(initialCards);
 CardPreviewPopup.setEventListeners();
+
+editPopup.setEventListeners();
+addPopup.setEventListeners();
+
+editFormValidator.enableValidation();
+addFormValidator.enableValidation();
 
 // all the rest
 editProfileButton.addEventListener("click", () => {
@@ -94,3 +126,4 @@ editProfileButton.addEventListener("click", () => {
 editProfileCloseButton.addEventListener("click", () => closeModal(editModal));
 
 addCardButton.addEventListener("click", () => openModal(addModal));
+addModalCloseButton.addEventListener("click", () => closeModal(addModal));
