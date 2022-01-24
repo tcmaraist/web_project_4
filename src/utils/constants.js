@@ -1,5 +1,4 @@
 // Data
-
 export const initialCards = [
   {
     title: "Yosemite Valley",
@@ -40,10 +39,12 @@ export const ESC_KEYCODE = 27;
 
 export const addModal = document.querySelector(".modal_type_add");
 export const editModal = document.querySelector(".modal_type_edit");
+
 // Validation
 export const addFormEl = addModal.querySelector(".form");
 export const editFormEl = editModal.querySelector(".form");
 
+// Selectors
 export const selectors = {
   cardSection: ".cards",
   cardTemplate: "#cardTemplate",
