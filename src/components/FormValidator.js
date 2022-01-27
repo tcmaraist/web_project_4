@@ -21,7 +21,7 @@ class FormValidator {
     const errorEl = this._form.querySelector(`#${inputEl.id}-error`);
 
     inputEl.classList.remove(this._inputErrorClass);
-    errorEl.innerText = "";
+    errorEl.textContent = "";
     errorEl.classList.remove(this._errorClass);
   }
 
@@ -55,7 +55,7 @@ class FormValidator {
     this._inputList = [...this._form.querySelectorAll(this._inputSelector)];
     this._buttonEl = this._form.querySelector(this._submitButtonSelector);
 
-    this._inputList.forEach((inputEl) => {
+    this._inputList.some((inputEl) => {
       inputEl.addEventListener("input", (evt) => {
         // check if the input is valid
         this._checkInputValidity(inputEl);
@@ -73,6 +73,7 @@ class FormValidator {
 
   resetForm() {
     this._form.reset();
+    this._toggleButtonState();
   }
 }
 

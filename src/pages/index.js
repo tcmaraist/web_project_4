@@ -43,7 +43,7 @@ const aboutInput = editForm.querySelector(".form__input_type_about");
 
 // Create instances of the classes
 
-const newCard = (item) =>
+const createCard = (item) =>
   new Card(
     {
       data: item,
@@ -58,7 +58,7 @@ const cardPreviewPopup = new PopupWithImage(selectors.previewPopup);
 const cardSection = new Section(
   {
     renderer: (item) => {
-      const cardEl = newCard(item);
+      const cardEl = createCard(item);
       cardSection.addItem(cardEl.generateCard());
     },
   },
@@ -80,7 +80,7 @@ const editPopup = new PopupWithForm({
 const addPopup = new PopupWithForm({
   selector: selectors.addModalSelector,
   handleFormSubmission: (card) => {
-    const cardEl = newCard(card);
+    const cardEl = createCard(card);
     cardSection.addItem(cardEl.generateCard());
   },
 });
@@ -109,7 +109,10 @@ editProfileButton.addEventListener("click", () => {
 
 editProfileCloseButton.addEventListener("click", () => editPopup.close());
 
-addCardButton.addEventListener("click", () => addPopup.open());
+addCardButton.addEventListener("click", () => {
+  addFormValidator.resetForm();
+  addPopup.open();
+});
 addModalCloseButton.addEventListener("click", () => addPopup.close());
 
 previewModalCloseButton.addEventListener("click", () =>
