@@ -17,7 +17,7 @@ const closeModalEscapeHandler = (evt) => {
 };
 
 const closeModalClickHandler = (evt) => {
-  evt.target.classList.remove("modal_is-open");
+  closeModal(evt.target);
 };
 
 export { openModal, closeModal };

@@ -3,4 +3,10 @@
   color: #000000;
   border: 1px solid #000000;
   opacity: 0.5;
+  cursor: default;
+}
+
+.form__save-button_disabled:hover {
+  opacity: 0.5;
+  cursor: default;
 }

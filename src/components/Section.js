@@ -11,10 +11,6 @@ export default class Section {
 
   renderItems(items) {
     // use this._renderer to create the element for rendering
-    items.forEach((item) => {
-      this._renderer(item);
-      /* const renderedItem = this._renderer(item);
-      this.addItem(renderedItem); */
-    });
+    items.forEach(this._renderer);
   }
 }

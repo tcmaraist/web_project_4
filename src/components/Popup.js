@@ -12,7 +12,7 @@ class Popup {
   }
 
   setEventListeners() {
-    this._popupElement.addEventListener("click", (evt) => {
+    this._popupElement.addEventListener("mousedown", (evt) => {
       if (
         evt.target.classList.contains("modal") ||
         evt.target.classList.contains("modal__close-button")
@@ -23,12 +23,12 @@ class Popup {
   }
 
   open() {
-    document.addEventListener("click", this._handleEscClose);
+    document.addEventListener("keyup", this._handleEscClose);
     this._popupElement.classList.add("modal_is-open");
   }
 
   close() {
-    document.removeEventListener("click", this._handleEscClose);
+    document.removeEventListener("keyup", this._handleEscClose);
     this._popupElement.classList.remove("modal_is-open");
   }
 }

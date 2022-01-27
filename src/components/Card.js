@@ -1,10 +1,3 @@
-import { openModal, closeModal } from "./utils.js";
-import { PopupWithImage } from "./PopupWithImage.js";
-import { PopupWithForm } from "./PopupWithForm.js";
-
-export const previewModal = document.querySelector(".modal_type_preview");
-const previewModalImage = previewModal.querySelector(".modal__image");
-const previewModalTitle = previewModal.querySelector(".modal__title");
 class Card {
   constructor({ data, handleCardClick }, cardSelector) {
     this._name = data.title;
@@ -30,6 +23,7 @@ class Card {
 
   _handleDelete() {
     this._element.remove();
+    this._element = null;
   }
 
   _setEventListeners() {

@@ -3,23 +3,23 @@ import {
   initialCards,
   selectors,
   validationSettings,
-  editFormEl,
-  editModal,
-  addFormEl,
-  addModal,
 } from "../utils/constants.js";
-import { openModal, closeModal } from "../components/utils.js";
 import FormValidator from "../components/FormValidator.js";
 import Card from "../components/Card.js";
-import { previewModal } from "../components/Card.js";
 import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import UserInfo from "../components/UserInfo.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 
 //constants
+const addModal = document.querySelector(".modal_type_add");
+const editModal = document.querySelector(".modal_type_edit");
 
 const editForm = editModal.querySelector(".form");
+
+// Validation
+const addFormEl = addModal.querySelector(".form");
+const editFormEl = editModal.querySelector(".form");
 
 // Buttons
 const editProfileButton = document.querySelector(".profile__edit-button");
@@ -42,20 +42,24 @@ const nameInput = editForm.querySelector(".form__input_type_name");
 const aboutInput = editForm.querySelector(".form__input_type_about");
 
 // Create instances of the classes
-const CardPreviewPopup = new PopupWithImage(selectors.previewPopup);
-const CardSection = new Section(
+
+const newCard = (item) =>
+  new Card(
+    {
+      data: item,
+      handleCardClick: (imgData) => {
+        cardPreviewPopup.open(imgData);
+      },
+    },
+    selectors.cardTemplate
+  );
+
+const cardPreviewPopup = new PopupWithImage(selectors.previewPopup);
+const cardSection = new Section(
   {
     renderer: (item) => {
-      const cardEl = new Card(
-        {
-          data: item,
-          handleCardClick: (imgData) => {
-            CardPreviewPopup.open(imgData);
-          },
-        },
-        selectors.cardTemplate
-      );
-      CardSection.addItem(cardEl.generateCard());
+      const cardEl = newCard(item);
+      cardSection.addItem(cardEl.generateCard());
     },
   },
   selectors.cardSection
@@ -76,16 +80,8 @@ const editPopup = new PopupWithForm({
 const addPopup = new PopupWithForm({
   selector: selectors.addModalSelector,
   handleFormSubmission: (card) => {
-    const cardEl = new Card(
-      {
-        data: card,
-        handleCardClick: (imgData) => {
-          CardPreviewPopup.open(imgData);
-        },
-      },
-      selectors.cardTemplate
-    );
-    CardSection.addItem(cardEl.generateCard());
+    const cardEl = newCard(card);
+    cardSection.addItem(cardEl.generateCard());
   },
 });
 
@@ -96,8 +92,8 @@ const editFormValidator = new FormValidator(validationSettings, editFormEl);
 editFormValidator.enableValidation();
 
 // initialize instances of the classes
-CardSection.renderItems(initialCards);
-CardPreviewPopup.setEventListeners();
+cardSection.renderItems(initialCards);
+cardPreviewPopup.setEventListeners();
 
 editPopup.setEventListeners();
 addPopup.setEventListeners();
@@ -108,14 +104,14 @@ addFormValidator.enableValidation();
 // all the rest
 editProfileButton.addEventListener("click", () => {
   prefillEditForm(editModal);
-  openModal(editModal);
+  editPopup.open();
 });
 
-editProfileCloseButton.addEventListener("click", () => closeModal(editModal));
+editProfileCloseButton.addEventListener("click", () => editPopup.close());
 
-addCardButton.addEventListener("click", () => openModal(addModal));
-addModalCloseButton.addEventListener("click", () => closeModal(addModal));
+addCardButton.addEventListener("click", () => addPopup.open());
+addModalCloseButton.addEventListener("click", () => addPopup.close());
 
 previewModalCloseButton.addEventListener("click", () =>
-  closeModal(previewModal)
+  cardPreviewPopup.close()
 );
