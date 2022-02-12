@@ -21,9 +21,9 @@ class Card {
       .classList.toggle("card__like-button_type_active");
   }
 
-  _handleDelete() {
-    this._element.remove();
-    this._element = null;
+  _updateLikeCounter() {
+    this._liked = this._element.querySelector(".like-button__counter");
+    this._liked.textContent = this._liked.length;
   }
 
   _setEventListeners() {
@@ -31,11 +31,6 @@ class Card {
       .querySelector(".card__like-button")
       .addEventListener("click", () => {
         this._handleLike();
-      });
-    this._element
-      .querySelector(".card__delete-button")
-      .addEventListener("click", () => {
-        this._handleDelete();
       });
 
     this._element

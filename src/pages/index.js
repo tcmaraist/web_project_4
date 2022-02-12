@@ -10,12 +10,15 @@ import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import UserInfo from "../components/UserInfo.js";
 import PopupWithForm from "../components/PopupWithForm.js";
-
+// import PopupWithDelete from "../components/PopupWithDelete.js";
+// import Api from "../components/Api.js";
 //constants
 const addModal = document.querySelector(".modal_type_add");
 const editModal = document.querySelector(".modal_type_edit");
 
 const editForm = editModal.querySelector(".form");
+
+// const avatarInput = document.querySelector(".profile__image");
 
 // Validation
 const addFormEl = addModal.querySelector(".form");
@@ -42,7 +45,14 @@ const nameInput = editForm.querySelector(".form__input_type_name");
 const aboutInput = editForm.querySelector(".form__input_type_about");
 
 // Create instances of the classes
-
+/* const api = new Api({
+  baseUrl: "https://around.nomoreparties.co/v1/group-12",
+  headers: {
+    authorization: "4921d172-e47d-477d-bceb-cfdae220d52e",
+    "Content-Type": "application/json",
+  },
+});
+*/
 const createCard = (item) =>
   new Card(
     {
@@ -85,6 +95,48 @@ const addPopup = new PopupWithForm({
   },
 });
 
+/*
+const deletePopup = new PopupWithDelete({
+  selector: selectors.deletePopupSelector,
+  handleDelete: () => {
+    const imgEl = document.querySelector("element__image");
+    api
+      .removeCard({
+        _id: imgEl.scroll,
+      })
+      .then(() => {
+        deletePopup._handleDelete();
+      })
+      .catch((err) => {
+        console.log(`Error: ${err}`);
+      })
+      .finally(() => {
+        //console.log ...loading
+      });
+  },
+});
+
+const avatarPopup = new PopupWithForm({
+  selector: selectors.avatarSelector,
+  handleFormSubmission: () => {
+    const avatar = document.querySelector(".profile__image");
+    api
+      .updateProfilePicture({
+        avatar: avatar,
+      })
+      .then(() => {
+        avatar.src = avatarInput.value;
+        avatarPopup.resetForm();
+      })
+      .catch((err) => {
+        console.log(`Error: ${err}`);
+      })
+      .finally(() => {
+        //console.log ...loading
+      });
+  },
+});
+*/
 const addFormValidator = new FormValidator(validationSettings, addFormEl);
 addFormValidator.enableValidation();
 
@@ -92,6 +144,14 @@ const editFormValidator = new FormValidator(validationSettings, editFormEl);
 editFormValidator.enableValidation();
 
 // initialize instances of the classes
+/*
+api
+  .getInitialCards()
+  .then((result) => {})
+  .catch((err) => {
+    console.log(err);
+  });
+*/
 cardSection.renderItems(initialCards);
 cardPreviewPopup.setEventListeners();
 

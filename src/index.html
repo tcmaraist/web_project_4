@@ -15,11 +15,21 @@
     </header>
     <main>
       <section class="profile">
-        <img
-          class="profile__image"
-          src="<%=require('./images/profile.png')%>"
-          alt="user profile image"
-        />
+        <div class="profile__image-container">
+          <div class="profile__overlay">
+            <button
+              type="button"
+              class="button profile__edit-button_type-avatar"
+              id="avatar-button"
+            ></button>
+          </div>
+          <img
+            class="profile__image"
+            src="<%=require('./images/profile.png')%>"
+            alt="user profile image"
+          />
+        </div>
+
         <div class="profile__info">
           <div class="profile__info-group">
             <h1 class="profile__name">Jacques Cousteau</h1>
@@ -124,6 +134,56 @@
         </div>
       </section>
 
+      <section class="modal modal_type_delete-confirmation">
+        <div class="modal__body modal__body_type_delete-confirmation">
+          <button
+            aria-label="close"
+            class="button modal__close-button"
+            type="button"
+          ></button>
+          <form class="form" name="delete-button">
+            <h2 class="modal__title">Are you Sure?</h2>
+            <button
+              class="form__save-button button"
+              type="submit"
+              name="delete-button"
+              value="Yes"
+            >
+              Yes
+            </button>
+          </form>
+        </div>
+      </section>
+      <section class="modal modal_type_avatar-edit">
+        <div class="modal__body moday__body_type_avatar">
+          <button
+            aria-label="close"
+            class="button modal__close-button"
+            type="button"
+          ></button>
+          <form>
+            <h2 class="modal__title">Change profile picture</h2>
+            <input
+              class="form__input form__input_type_image-url"
+              type="url"
+              id="avatar"
+              name="avatar"
+              placeholder="enter image link here"
+              required
+            />
+            <span class="form__error" id="avatar-error"></span>
+            <button
+              aria-label="save"
+              class="button form__save-button form__save-button_disabled"
+              disabled="true"
+              type="submit"
+            >
+              Save
+            </button>
+          </form>
+        </div>
+      </section>
+
       <section class="modal modal_type_preview">
         <div class="modal__body modal__body_type_preview">
           <button
@@ -132,7 +192,7 @@
             type="button"
           ></button>
           <img class="modal__image" src="#" alt="#" />
-          <h2 class="modal__title"><!--INSERT CAPTION--></h2>
+          <h2 class="modal__title"></h2>
         </div>
       </section>
 

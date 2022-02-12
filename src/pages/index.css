@@ -8,13 +8,16 @@
 @import url(../blocks/header/__logo/header__logo.css);
 
 @import url(../blocks/profile/profile.css);
+@import url(../blocks/profile/__image-container/profile__image-container.css);
 @import url(../blocks/profile/__info/profile__info.css);
 @import url(../blocks/profile/__info-group/profile__info-group.css);
 @import url(../blocks/profile/__image/profile__image.css);
 @import url(../blocks/profile/__name/profile__name.css);
 @import url(../blocks/profile/__edit-button/profile__edit-button.css);
+@import url(../blocks/profile/__edit-button/_type/profile__edit-button_type-avatar.css);
 @import url(../blocks/profile/__about/profile__about.css);
 @import url(../blocks/profile/__add-button/profile__add-button.css);
+@import url(../blocks/profile/__overlay/profile__overlay.css);
 
 @import url(../blocks/modal/modal.css);
 @import url(../blocks/modal/_is-open/modal_is-open.css);
