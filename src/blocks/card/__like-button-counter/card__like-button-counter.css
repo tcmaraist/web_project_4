@@ -1,0 +1,9 @@
+.card__like-button-counter.css {
+  margin: 0 auto;
+  height: 9px;
+  width: 13px;
+  font-size: 13px;
+  line-height: 16px;
+  font-weight: normal;
+  text-align: center;
+}

@@ -1,32 +1,32 @@
 import "./index.css";
-import {
-  initialCards,
-  selectors,
-  validationSettings,
-} from "../utils/constants.js";
+import { selectors, validationSettings } from "../utils/constants.js";
 import FormValidator from "../components/FormValidator.js";
 import Card from "../components/Card.js";
 import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import UserInfo from "../components/UserInfo.js";
 import PopupWithForm from "../components/PopupWithForm.js";
-// import PopupWithDelete from "../components/PopupWithDelete.js";
-// import Api from "../components/Api.js";
+import PopupWithDelete from "../components/PopupWithDelete.js";
+import Api from "../components/Api.js";
+
 //constants
 const addModal = document.querySelector(".modal_type_add");
 const editModal = document.querySelector(".modal_type_edit");
+const editAvatarModal = document.querySelector(".modal_type_avatar-edit");
 
 const editForm = editModal.querySelector(".form");
-
-// const avatarInput = document.querySelector(".profile__image");
 
 // Validation
 const addFormEl = addModal.querySelector(".form");
 const editFormEl = editModal.querySelector(".form");
+const editAvatarFormEl = editAvatarModal.querySelector(".form");
 
 // Buttons
 const editProfileButton = document.querySelector(".profile__edit-button");
 const editProfileCloseButton = editModal.querySelector(".modal__close-button");
+const editAvatarButton = document.querySelector(
+  ".profile__edit-button_type-avatar"
+);
 const profileName = document.querySelector(".profile__name");
 const profileAbout = document.querySelector(".profile__about");
 
@@ -45,20 +45,20 @@ const nameInput = editForm.querySelector(".form__input_type_name");
 const aboutInput = editForm.querySelector(".form__input_type_about");
 
 // Create instances of the classes
-/* const api = new Api({
+const api = new Api({
   baseUrl: "https://around.nomoreparties.co/v1/group-12",
   headers: {
     authorization: "4921d172-e47d-477d-bceb-cfdae220d52e",
     "Content-Type": "application/json",
   },
 });
-*/
-const createCard = (item) =>
+
+const createCard = (data) =>
   new Card(
     {
       data: item,
-      handleCardClick: (imgData) => {
-        cardPreviewPopup.open(imgData);
+      handleCardClick: (data) => {
+        cardPreviewPopup.open(data);
       },
     },
     selectors.cardTemplate
@@ -95,7 +95,6 @@ const addPopup = new PopupWithForm({
   },
 });
 
-/*
 const deletePopup = new PopupWithDelete({
   selector: selectors.deletePopupSelector,
   handleDelete: () => {
@@ -110,15 +109,13 @@ const deletePopup = new PopupWithDelete({
       .catch((err) => {
         console.log(`Error: ${err}`);
       })
-      .finally(() => {
-        //console.log ...loading
-      });
+      .finally(() => {});
   },
 });
 
 const avatarPopup = new PopupWithForm({
   selector: selectors.avatarSelector,
-  handleFormSubmission: () => {
+  handleFormSubmission: (data) => {
     const avatar = document.querySelector(".profile__image");
     api
       .updateProfilePicture({
@@ -131,12 +128,10 @@ const avatarPopup = new PopupWithForm({
       .catch((err) => {
         console.log(`Error: ${err}`);
       })
-      .finally(() => {
-        //console.log ...loading
-      });
+      .finally(() => {});
   },
 });
-*/
+
 const addFormValidator = new FormValidator(validationSettings, addFormEl);
 addFormValidator.enableValidation();
 
@@ -144,14 +139,18 @@ const editFormValidator = new FormValidator(validationSettings, editFormEl);
 editFormValidator.enableValidation();
 
 // initialize instances of the classes
-/*
+
 api
   .getInitialCards()
-  .then((result) => {})
+  .then((cardData) => {
+    cardData.forEach((data) => {
+      cardSection.addItem(createCard(data));
+    });
+  })
   .catch((err) => {
     console.log(err);
   });
-*/
+
 cardSection.renderItems(initialCards);
 cardPreviewPopup.setEventListeners();
 
@@ -165,6 +164,11 @@ addFormValidator.enableValidation();
 editProfileButton.addEventListener("click", () => {
   prefillEditForm(editModal);
   editPopup.open();
+});
+
+editAvatarButton.addEventListener("click", () => {
+  console.log("it isn't working");
+  avatarPopup.open();
 });
 
 editProfileCloseButton.addEventListener("click", () => editPopup.close());

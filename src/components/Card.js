@@ -26,6 +26,11 @@ class Card {
     this._liked.textContent = this._liked.length;
   }
 
+  _handleDelete() {
+    this._element.remove();
+    this._element = null;
+  }
+
   _setEventListeners() {
     this._element
       .querySelector(".card__like-button")

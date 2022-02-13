@@ -155,7 +155,7 @@
         </div>
       </section>
       <section class="modal modal_type_avatar-edit">
-        <div class="modal__body moday__body_type_avatar">
+        <div class="modal__body moday__body_type_avatar-edit">
           <button
             aria-label="close"
             class="button modal__close-button"
@@ -212,11 +212,14 @@
         <div class="card__image"></div>
         <div class="card__info">
           <h2 class="card__title"></h2>
-          <button
-            aria-label="like"
-            class="card__like-button button"
-            type="button"
-          ></button>
+          <div class="card__like-container">
+            <button
+              aria-label="like"
+              class="card__like-button button"
+              type="button"
+            ></button>
+            <p class="card__like-button-counter">0</p>
+          </div>
         </div>
       </article>
     </template>
