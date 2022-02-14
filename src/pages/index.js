@@ -1,5 +1,9 @@
 import "./index.css";
-import { selectors, validationSettings } from "../utils/constants.js";
+import {
+  initialCards,
+  selectors,
+  validationSettings,
+} from "../utils/constants.js";
 import FormValidator from "../components/FormValidator.js";
 import Card from "../components/Card.js";
 import Section from "../components/Section.js";
@@ -8,6 +12,7 @@ import UserInfo from "../components/UserInfo.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithDelete from "../components/PopupWithDelete.js";
 import Api from "../components/Api.js";
+import { renderLoading } from "../utils/utils";
 
 //constants
 const addModal = document.querySelector(".modal_type_add");
@@ -56,16 +61,79 @@ const api = new Api({
   },
 });
 
-const createCard = (data) =>
-  new Card(
+const userData = new UserInfo({
+  nameSelector: ".profile__name",
+  aboutSelector: ".profile__about",
+  avatarSelector: ".profile__image",
+});
+
+const renderInitialCards = new Section(
+  {
+    renderer: (item) => {
+      renderInitialCards.addItem(createCard(item));
+    },
+  },
+  selectors.cardSection
+);
+
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+  .then(([userInfo, initialCards]) => {
+    const { name, about, avatar, _id } = userInfo;
+    userData.setUserInfo({
+      name: name,
+      about: about,
+      _id: _id,
+      avatar: avatar,
+    });
+    renderInitialCards.renderedItems = initialCards;
+    renderInitialCards.renderItems();
+  })
+  .catch((err) => console.error(`Error: ${err}`));
+
+function createCard(item) {
+  const card = new Card(
     {
       data: item,
-      handleCardClick: (data) => {
-        cardPreviewPopup.open(data);
+      handleClick: (data) => cardPreviewPopup.open(data),
+      userId: userInfo.getUserId(),
+      handleDeletePopup: function handleDeletePopup() {
+        deletePopup.open(item._id, cardElement);
+      },
+      handleLike: function handleLike() {
+        if (card.isLiked()) {
+          api
+            .toggleLikeCardStatus(item._id)
+            .then((data) => card.updateLikeCounter(data))
+            .catch((err) => console.log(`Error: ${err}`));
+        } else {
+          api
+            .addLike(item._id)
+            .then((data) => card.updateLikeCounter(data))
+            .catch((err) => console.log(`Error: ${err}`));
+        }
       },
     },
     selectors.cardTemplate
   );
+  return card.generateCard();
+}
+/*
+const createCard = (data) => {
+  const card = new Card(
+    {
+      data,
+      handleCardClick: (data) => {
+        cardPreviewPopup.open(data);
+      },
+      handleDeletePopup: () => {
+        deletePopup.open();
+      },
+    },
+    selectors.cardTemplate
+  );
+  return card.generateCard();
+};
+*/
 
 const cardPreviewPopup = new PopupWithImage(selectors.previewPopup);
 const cardSection = new Section(
@@ -78,29 +146,49 @@ const cardSection = new Section(
   selectors.cardSection
 );
 
-const userInfo = new UserInfo({
-  nameSelector: ".profile__name",
-  aboutSelector: ".profile__about",
-});
-
 const editPopup = new PopupWithForm({
   selector: selectors.profileModalSelector,
   handleFormSubmission: (data) => {
-    userInfo.setUserInfo(data);
+    userInfo.setUserInfo({ name: data.name, about: data.about });
   },
 });
-
+/*api
+      .setUserInfo({
+        name: data.name,
+        about: data.about,
+      })
+      .then((info) => {
+        userInfo.setUserInfo({
+          name: info.name,
+          about: info.about,
+        });
+        editPopup.close();
+      })
+      .catch((err) => console.log(`Error: ${err}`))
+      .finally(() => {});
+      */
 const addPopup = new PopupWithForm({
   selector: selectors.addModalSelector,
-  handleFormSubmission: (card) => {
-    const cardEl = createCard(card);
-    cardSection.addItem(cardEl.generateCard());
+  handleFormSubmission: (item) => {
+    api
+      .addCard(item)
+      .then((item) => {
+        renderInitialCards.prependItem(addCard(item));
+      })
+      .then(() => {
+        addPopup.close();
+      })
+      .catch((err) => {
+        console.log(`Error: ${err}`);
+      })
+      .finally(() => {});
   },
 });
-
+/*
 const deletePopup = new PopupWithDelete({
   selector: selectors.deletePopupSelector,
-  handleDelete: () => {
+  handleDelete: (data) => {
+    renderLoading(popupId: popupConfig.cardFormModalWindow, isLoading: true);
     const imgEl = document.querySelector("element__image");
     api
       .removeCard({
@@ -112,13 +200,15 @@ const deletePopup = new PopupWithDelete({
       .catch((err) => {
         console.log(`Error: ${err}`);
       })
-      .finally(() => {});
+      .finally(() => {
+        renderLoading(popupId: popupConfig.cardFormModalWindow);
+      });
   },
 });
-
+*/
 const avatarPopup = new PopupWithForm({
   selector: selectors.avatarSelector,
-  handleFormSubmission: (data) => {
+  handleFormSubmission: () => {
     const avatar = document.querySelector(".profile__image");
     api
       .updateProfilePicture({
@@ -148,7 +238,7 @@ const avatarFormValidator = new FormValidator(
 avatarFormValidator.enableValidation();
 
 // initialize instances of the classes
-
+/*
 api
   .getInitialCards()
   .then((cardData) => {
@@ -159,7 +249,7 @@ api
   .catch((err) => {
     console.log(err);
   });
-
+*/
 // cardSection.renderItems(initialCards);
 cardPreviewPopup.setEventListeners();
 
@@ -177,7 +267,6 @@ editProfileButton.addEventListener("click", () => {
 editProfileCloseButton.addEventListener("click", () => editPopup.close());
 
 editAvatarButton.addEventListener("click", () => {
-  console.log("it isn't working");
   avatarFormValidator.resetForm();
   avatarPopup.open();
 });

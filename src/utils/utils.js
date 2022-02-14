@@ -19,5 +19,16 @@ const closeModalEscapeHandler = (evt) => {
 const closeModalClickHandler = (evt) => {
   closeModal(evt.target);
 };
-
+/*
+export const renderLoading = (popupId, isLoading = false) => {
+  const currentActiveButton = document.querySelector(
+    selectors: `#{popupId} .popup__button`
+  );
+  if(isLoading) {
+    currentActiveButton.textContent = "Saving...";
+  } else {
+    currentActiveButton.textContent = "Save";
+  }
+}
+*/
 export { openModal, closeModal };
