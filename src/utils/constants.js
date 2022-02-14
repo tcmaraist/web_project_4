@@ -42,6 +42,6 @@ export const selectors = {
   previewPopup: ".modal_type_preview",
   profileModalSelector: ".modal_type_edit",
   addModalSelector: ".modal_type_add",
-  deletePopupSelecor: ".",
-  avatarSelector: ".",
+  deletePopupSelector: ".modal_type_delete-confirmation",
+  avatarSelector: ".modal_type_avatar-edit",
 };

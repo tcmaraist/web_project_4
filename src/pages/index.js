@@ -27,6 +27,9 @@ const editProfileCloseButton = editModal.querySelector(".modal__close-button");
 const editAvatarButton = document.querySelector(
   ".profile__edit-button_type-avatar"
 );
+const editAvatarCloseButton = editAvatarModal.querySelector(
+  ".modal__close-button"
+);
 const profileName = document.querySelector(".profile__name");
 const profileAbout = document.querySelector(".profile__about");
 
@@ -138,6 +141,12 @@ addFormValidator.enableValidation();
 const editFormValidator = new FormValidator(validationSettings, editFormEl);
 editFormValidator.enableValidation();
 
+const avatarFormValidator = new FormValidator(
+  validationSettings,
+  editAvatarFormEl
+);
+avatarFormValidator.enableValidation();
+
 // initialize instances of the classes
 
 api
@@ -151,7 +160,7 @@ api
     console.log(err);
   });
 
-cardSection.renderItems(initialCards);
+// cardSection.renderItems(initialCards);
 cardPreviewPopup.setEventListeners();
 
 editPopup.setEventListeners();
@@ -165,13 +174,16 @@ editProfileButton.addEventListener("click", () => {
   prefillEditForm(editModal);
   editPopup.open();
 });
+editProfileCloseButton.addEventListener("click", () => editPopup.close());
 
 editAvatarButton.addEventListener("click", () => {
   console.log("it isn't working");
+  avatarFormValidator.resetForm();
   avatarPopup.open();
 });
-
-editProfileCloseButton.addEventListener("click", () => editPopup.close());
+editAvatarCloseButton.addEventListener("click", () => {
+  avatarPopup.close();
+});
 
 addCardButton.addEventListener("click", () => {
   addFormValidator.resetForm();
