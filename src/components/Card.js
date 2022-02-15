@@ -12,7 +12,7 @@ class Card {
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
     this._handleDeletePopup = handleDeletePopup;
-    this._handleLike = handleLike = handleLike;
+    this._handleLike = handleLike;
   }
 
   _getTemplate() {
@@ -90,7 +90,7 @@ class Card {
       ".card__image"
     ).style.backgroundImage = `url(${this._link})`;
     this._element.querySelector(".card__title").textContent = this._name;
-
+    this._likeButton = this._element.querySelector(".card__like-button");
     return this._element;
   }
 }

@@ -85,8 +85,7 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
       _id: _id,
       avatar: avatar,
     });
-    renderInitialCards.renderedItems = initialCards;
-    renderInitialCards.renderItems();
+    renderInitialCards.renderItems(initialCards);
   })
   .catch((err) => console.error(`Error: ${err}`));
 
@@ -95,7 +94,7 @@ function createCard(item) {
     {
       data: item,
       handleClick: (data) => cardPreviewPopup.open(data),
-      userId: userInfo.getUserId(),
+      userId: userData.getUserId(),
       handleDeletePopup: function handleDeletePopup() {
         deletePopup.open(item._id, cardElement);
       },
@@ -149,7 +148,7 @@ const cardSection = new Section(
 const editPopup = new PopupWithForm({
   selector: selectors.profileModalSelector,
   handleFormSubmission: (data) => {
-    userInfo.setUserInfo({ name: data.name, about: data.about });
+    userData.setUserInfo({ name: data.name, about: data.about });
   },
 });
 /*api
