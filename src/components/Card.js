@@ -3,8 +3,8 @@ class Card {
     { data, handleCardClick, handleDeletePopup, handleLike, userId },
     cardSelector
   ) {
-    this._name = data.title;
-    this._link = data.image;
+    this._name = data.name;
+    this._link = data.link;
     this._likes = data.likes;
     this._authUserId = data.owner._id;
     this._userId = userId;

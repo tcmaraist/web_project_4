@@ -169,18 +169,7 @@ const editPopup = new PopupWithForm({
 const addPopup = new PopupWithForm({
   selector: selectors.addModalSelector,
   handleFormSubmission: (item) => {
-    api
-      .addCard(item)
-      .then((item) => {
-        renderInitialCards.prependItem(addCard(item));
-      })
-      .then(() => {
-        addPopup.close();
-      })
-      .catch((err) => {
-        console.log(`Error: ${err}`);
-      })
-      .finally(() => {});
+    createCard(item);
   },
 });
 /*

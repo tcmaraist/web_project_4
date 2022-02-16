@@ -11,7 +11,7 @@ export default class Api {
   getUserInfo() {
     return fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers,
-    }).then(this.handleServerResponse);
+    }).then(this._handleServerResponse);
   }
 
   setUserInfo({ name, description }) {
