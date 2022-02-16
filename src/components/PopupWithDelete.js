@@ -1,7 +1,29 @@
 import Popup from "./Popup";
 
 export default class PopupWithDelete extends Popup {
-  constructor({ Selector }) {
+  constructor({ handleFormSubmission, popupElement }) {
+    super(popupElement);
+
+    this._handleFormSubmission = handleFormSubmission;
+    this._formElement = this._popupElement.querySelector(".form");
+  }
+
+  open(cardId, cardElement) {
+    super.open();
+    this._cardId = cardId;
+    this._cardElement = cardElement;
+  }
+
+  setEventListeners() {
+    super.setEventListeners();
+    this._popupElement.addEventListener("submit", (evt) => {
+      evt.preventDefault();
+      this._handleFormSubmission(this._cardId, this._cardElement);
+    });
+  }
+}
+
+/*constructor({ Selector }) {
     super(Selector);
 
     this._handleDelete = this._handleDelete;
@@ -20,4 +42,4 @@ export default class PopupWithDelete extends Popup {
         this._handleDelete();
       });
   }
-}
+  */

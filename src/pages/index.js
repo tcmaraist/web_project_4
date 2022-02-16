@@ -135,7 +135,7 @@ const createCard = (data) => {
 */
 
 const cardPreviewPopup = new PopupWithImage(selectors.previewPopup);
-const cardSection = new Section(
+/*const cardSection = new Section(
   {
     renderer: (item) => {
       const cardEl = createCard(item);
@@ -144,7 +144,7 @@ const cardSection = new Section(
   },
   selectors.cardSection
 );
-
+*/
 const editPopup = new PopupWithForm({
   selector: selectors.profileModalSelector,
   handleFormSubmission: (data) => {
