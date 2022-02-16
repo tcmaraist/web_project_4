@@ -93,20 +93,15 @@ function createCard(item) {
   const card = new Card(
     {
       data: item,
-      handleClick: (data) => cardPreviewPopup.open(data),
+      handleCardClick: (data) => cardPreviewPopup.open(data),
       userId: userData.getUserId(),
       handleDeletePopup: function handleDeletePopup() {
         deletePopup.open(item._id, cardElement);
       },
-      handleLike: function handleLike() {
-        if (card.isLiked()) {
+      likeHandler: function likeHandler() {
+        if (card._isLiked()) {
           api
             .toggleLikeCardStatus(item._id)
-            .then((data) => card.updateLikeCounter(data))
-            .catch((err) => console.log(`Error: ${err}`));
-        } else {
-          api
-            .addLike(item._id)
             .then((data) => card.updateLikeCounter(data))
             .catch((err) => console.log(`Error: ${err}`));
         }
@@ -116,84 +111,51 @@ function createCard(item) {
   );
   return card.generateCard();
 }
-/*
-const createCard = (data) => {
-  const card = new Card(
-    {
-      data,
-      handleCardClick: (data) => {
-        cardPreviewPopup.open(data);
-      },
-      handleDeletePopup: () => {
-        deletePopup.open();
-      },
-    },
-    selectors.cardTemplate
-  );
-  return card.generateCard();
-};
-*/
 
 const cardPreviewPopup = new PopupWithImage(selectors.previewPopup);
-/*const cardSection = new Section(
-  {
-    renderer: (item) => {
-      const cardEl = createCard(item);
-      cardSection.addItem(cardEl.generateCard());
-    },
-  },
-  selectors.cardSection
-);
-*/
+
 const editPopup = new PopupWithForm({
   selector: selectors.profileModalSelector,
   handleFormSubmission: (data) => {
     userData.setUserInfo({ name: data.name, about: data.about });
   },
 });
-/*api
-      .setUserInfo({
-        name: data.name,
-        about: data.about,
-      })
-      .then((info) => {
-        userInfo.setUserInfo({
-          name: info.name,
-          about: info.about,
-        });
-        editPopup.close();
-      })
-      .catch((err) => console.log(`Error: ${err}`))
-      .finally(() => {});
-      */
+
 const addPopup = new PopupWithForm({
   selector: selectors.addModalSelector,
   handleFormSubmission: (item) => {
-    createCard(item);
-  },
-});
-/*
-const deletePopup = new PopupWithDelete({
-  selector: selectors.deletePopupSelector,
-  handleDelete: (data) => {
-    renderLoading(popupId: popupConfig.cardFormModalWindow, isLoading: true);
-    const imgEl = document.querySelector("element__image");
     api
-      .removeCard({
-        _id: imgEl.scroll,
+      .addCard(item)
+      .then((item) => {
+        renderInitialCards.addItem(createCard(item));
       })
       .then(() => {
-        deletePopup._handleDelete();
+        addPopup.close();
       })
       .catch((err) => {
-        console.log(`Error: ${err}`);
+        console.error(`Error: ${err}`);
       })
       .finally(() => {
-        renderLoading(popupId: popupConfig.cardFormModalWindow);
+        addPopup.renderSaving(false);
       });
   },
 });
-*/
+
+const deletePopup = new PopupWithDelete({
+  selector: selectors.deletePopupSelector,
+  handleFormSubmission: (cardId, cardElement) => {
+    api
+      .removeCard(cardId)
+      .then(() => {
+        cardElement.remove();
+      })
+      .then(() => {
+        deletePopup.close();
+      })
+      .catch((err) => console.error(`Error: ${err}`));
+  },
+});
+/*
 const avatarPopup = new PopupWithForm({
   selector: selectors.avatarSelector,
   handleFormSubmission: () => {
@@ -212,7 +174,7 @@ const avatarPopup = new PopupWithForm({
       .finally(() => {});
   },
 });
-
+*/
 const addFormValidator = new FormValidator(validationSettings, addFormEl);
 addFormValidator.enableValidation();
 

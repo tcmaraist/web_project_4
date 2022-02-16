@@ -1,6 +1,6 @@
 class Card {
   constructor(
-    { data, handleCardClick, handleDeletePopup, handleLike, userId },
+    { data, handleCardClick, handleDeletePopup, likeHandler, userId },
     cardSelector
   ) {
     this._name = data.name;
@@ -12,7 +12,7 @@ class Card {
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
     this._handleDeletePopup = handleDeletePopup;
-    this._handleLike = handleLike;
+    this._likeHandler = likeHandler;
   }
 
   _getTemplate() {
@@ -40,7 +40,7 @@ class Card {
   }
 
   _likeHandler() {
-    this._likeCount.textContent = this._likes.length;
+    this._likeCounter.textContent = this._likes.length;
 
     if (this._likes.filter((user) => user._id === this._userId).length > 0) {
       this._likeButton.classList.add("card__like-button_type_active");
@@ -50,14 +50,14 @@ class Card {
   }
 
   _isLiked() {
-    if (this._likeButton.classList.contains("card__like-button_active")) {
+    if (this._likeButton.classList.contains("card__like-button_type_active")) {
       return true;
     } else {
       return false;
     }
   }
 
-  _handleDelete() {
+  _handleDeletePopup() {
     if (this._userId === this._authUserId) {
       this._deleteButton.classList.add("card__delete-button_visible");
     } else {
@@ -68,8 +68,9 @@ class Card {
   _setEventListeners() {
     this._element
       .querySelector(".card__like-button")
-      .addEventListener("click", () => {
-        this._handleLike();
+      .addEventListener("click", (evt) => {
+        console.log(evt);
+        this._likeHandler();
       });
 
     this._element
@@ -79,7 +80,10 @@ class Card {
       });
     this._element
       .querySelector(".card__delete-button")
-      .addEventListener("click", () => this._handleDeletePopup);
+      .addEventListener("click", (evt) => {
+        console.log(evt);
+        this._handleDeletePopup;
+      });
   }
 
   generateCard() {
@@ -91,6 +95,9 @@ class Card {
     ).style.backgroundImage = `url(${this._link})`;
     this._element.querySelector(".card__title").textContent = this._name;
     this._likeButton = this._element.querySelector(".card__like-button");
+    this._likeCounter = this._element.querySelector(
+      ".card__like-button-counter"
+    );
     this._deleteButton = this._element.querySelector(".card__delete-button");
     return this._element;
   }
