@@ -144,6 +144,7 @@ const addPopup = new PopupWithForm({
 const deletePopup = new PopupWithDelete({
   selector: selectors.deletePopupSelector,
   handleFormSubmission: (cardId, cardElement) => {
+    debugger;
     api
       .removeCard(cardId)
       .then(() => {
@@ -155,26 +156,29 @@ const deletePopup = new PopupWithDelete({
       .catch((err) => console.error(`Error: ${err}`));
   },
 });
-/*
+
 const avatarPopup = new PopupWithForm({
   selector: selectors.avatarSelector,
   handleFormSubmission: () => {
-    const avatar = document.querySelector(".profile__image");
     api
-      .updateProfilePicture({
-        avatar: avatar,
+      .updateProfilePicture(data)
+      .then((data) => {
+        userData.setAvatar({
+          avatar: data.avatar,
+        });
       })
       .then(() => {
-        avatar.src = avatarInput.value;
-        avatarPopup.resetForm();
+        updateProfilePicture.close();
       })
       .catch((err) => {
-        console.log(`Error: ${err}`);
+        console.error(`Error: ${err}`);
       })
-      .finally(() => {});
+      .finally(() => {
+        updateProfilePicture.renderSaving(false);
+      });
   },
 });
-*/
+
 const addFormValidator = new FormValidator(validationSettings, addFormEl);
 addFormValidator.enableValidation();
 
@@ -205,6 +209,8 @@ cardPreviewPopup.setEventListeners();
 
 editPopup.setEventListeners();
 addPopup.setEventListeners();
+//avatarPopup.setEventListeners();
+deletePopup.setEventListeners();
 
 editFormValidator.enableValidation();
 addFormValidator.enableValidation();

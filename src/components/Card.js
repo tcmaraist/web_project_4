@@ -59,17 +59,16 @@ class Card {
 
   _handleDeletePopup() {
     if (this._userId === this._authUserId) {
-      this._deleteButton.classList.add("card__delete-button_visible");
+      this._deleteButton.style.visibility = "visible";
     } else {
-      this._deleteButton.classList.remove("card__delete-button_visible");
+      this._deleteButton.style.visibility = "hidden";
     }
   }
 
   _setEventListeners() {
     this._element
       .querySelector(".card__like-button")
-      .addEventListener("click", (evt) => {
-        console.log(evt);
+      .addEventListener("click", () => {
         this._likeHandler();
       });
 
@@ -80,8 +79,7 @@ class Card {
       });
     this._element
       .querySelector(".card__delete-button")
-      .addEventListener("click", (evt) => {
-        console.log(evt);
+      .addEventListener("click", () => {
         this._handleDeletePopup;
       });
   }
