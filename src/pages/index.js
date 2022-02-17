@@ -159,7 +159,7 @@ const deletePopup = new PopupWithDelete({
 
 const avatarPopup = new PopupWithForm({
   selector: selectors.avatarSelector,
-  handleFormSubmission: () => {
+  handleFormSubmission: (data) => {
     api
       .updateProfilePicture(data)
       .then((data) => {
