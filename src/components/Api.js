@@ -52,13 +52,10 @@ export default class Api {
     }).then(this._handleServerResponse);
   }
 
-  removeCard({ _id }) {
-    return fetch(`${this._baseUrl}/cards/cardId`, {
+  removeCard({ cardId }) {
+    return fetch(`${this._baseUrl}/cards/${cardId}`, {
       method: "DELETE",
       headers: this._headers,
-      body: JSON.stringify({
-        _id,
-      }),
     }).then(this._handleServerResponse);
   }
 

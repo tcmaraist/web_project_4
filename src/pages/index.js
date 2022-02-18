@@ -87,7 +87,7 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
     });
     renderInitialCards.renderItems(initialCards);
   })
-  .catch((err) => console.error(`Error: ${err}`));
+  .catch((err) => console.error(`${err}`));
 
 function createCard(item) {
   const card = new Card(
@@ -95,15 +95,15 @@ function createCard(item) {
       data: item,
       handleCardClick: (data) => cardPreviewPopup.open(data),
       userId: userData.getUserId(),
-      handleDeletePopup: function handleDeletePopup() {
-        deletePopup.open(item._id, cardElement);
+      deleteHandler: function deleteHandler() {
+        deletePopup.open(item.cardId, card);
       },
       likeHandler: function likeHandler() {
         if (card._isLiked()) {
           api
             .toggleLikeCardStatus(item._id)
             .then((data) => card.updateLikeCounter(data))
-            .catch((err) => console.log(`Error: ${err}`));
+            .catch((err) => console.error(`${err}`));
         }
       },
     },
@@ -133,7 +133,7 @@ const addPopup = new PopupWithForm({
         addPopup.close();
       })
       .catch((err) => {
-        console.error(`Error: ${err}`);
+        console.error(`${err}`);
       })
       .finally(() => {
         addPopup.renderSaving(false);
@@ -143,17 +143,16 @@ const addPopup = new PopupWithForm({
 
 const deletePopup = new PopupWithDelete({
   selector: selectors.deletePopupSelector,
-  handleFormSubmission: (cardId, cardElement) => {
-    debugger;
+  handleFormSubmission: (cardId, card) => {
     api
-      .removeCard(cardId)
+      .removeCard({ cardId })
       .then(() => {
-        cardElement.remove();
+        card.remove();
       })
       .then(() => {
         deletePopup.close();
       })
-      .catch((err) => console.error(`Error: ${err}`));
+      .catch((err) => console.error(`${err}`));
   },
 });
 
@@ -171,7 +170,7 @@ const avatarPopup = new PopupWithForm({
         updateProfilePicture.close();
       })
       .catch((err) => {
-        console.error(`Error: ${err}`);
+        console.error(`${err}`);
       })
       .finally(() => {
         updateProfilePicture.renderSaving(false);
@@ -192,24 +191,11 @@ const avatarFormValidator = new FormValidator(
 avatarFormValidator.enableValidation();
 
 // initialize instances of the classes
-/*
-api
-  .getInitialCards()
-  .then((cardData) => {
-    cardData.forEach((data) => {
-      cardSection.addItem(createCard(data));
-    });
-  })
-  .catch((err) => {
-    console.log(err);
-  });
-*/
-// cardSection.renderItems(initialCards);
 cardPreviewPopup.setEventListeners();
 
 editPopup.setEventListeners();
 addPopup.setEventListeners();
-//avatarPopup.setEventListeners();
+avatarPopup.setEventListeners();
 deletePopup.setEventListeners();
 
 editFormValidator.enableValidation();

@@ -56,7 +56,7 @@ class Card {
       return false;
     }
   }
-
+  /*
   deleteHandler() {
     if (this._userId === this._authUserId) {
       this._deleteButton.style.visibility = "visible";
@@ -64,7 +64,7 @@ class Card {
       this._deleteButton.style.visibility = "hidden";
     }
   }
-
+*/
   _setEventListeners() {
     this._likeButton = this._element.querySelector(".card__like-button");
     this._likeButton.addEventListener("click", (evt) => {
@@ -80,7 +80,7 @@ class Card {
     this.deleteButton = this._element.querySelector(".card__delete-button");
     this.deleteButton.addEventListener("click", (evt) => {
       console.log(evt);
-      this.deleteHandler;
+      this.deleteHandler();
     });
   }
 
