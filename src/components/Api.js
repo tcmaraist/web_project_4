@@ -52,16 +52,23 @@ export default class Api {
     }).then(this._handleServerResponse);
   }
 
-  removeCard({ cardId }) {
-    return fetch(`${this._baseUrl}/cards/cardId`, {
+  removeCard(cardID) {
+    return fetch(`${this._baseUrl}/cards/${cardID}`, {
       method: "DELETE",
       headers: this._headers,
     }).then(this._handleServerResponse);
   }
 
-  toggleLikeCardStatus(cardId, like) {
+  addLike(cardId) {
     return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
-      method: like ? "PUT" : "DELETE",
+      method: "PUT",
+      headers: this._headers,
+    }).then(this._handleServerResponse);
+  }
+
+  removeLike(cardId) {
+    return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
+      method: "DELETE",
       headers: this._headers,
     }).then(this._handleServerResponse);
   }

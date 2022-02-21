@@ -83,6 +83,8 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
       name: name,
       about: about,
       _id: _id,
+    });
+    userData.setUserAvatar({
       avatar: avatar,
     });
     renderInitialCards.renderItems(initialCards);
@@ -95,14 +97,19 @@ function createCard(item) {
       data: item,
       handleCardClick: (data) => cardPreviewPopup.open(data),
       userId: userData.getUserId(),
-      deleteHandler: function deleteHandler() {
+      handleDeleteClick: function handleDeleteClick() {
         deletePopup.open(item.cardId, card);
       },
-      likeHandler: function likeHandler() {
+      handleLikes: function handleLikes() {
         if (card._isLiked()) {
           api
-            .toggleLikeCardStatus(item._id)
-            .then((data) => card.updateLikeCounter(data))
+            .removeLike(item._id)
+            .then((data) => card._updateLikes(data))
+            .catch((err) => console.error(`${err}`));
+        } else {
+          api
+            .addLike(item._id)
+            .then((data) => card._updateLikes(data))
             .catch((err) => console.error(`${err}`));
         }
       },
@@ -143,13 +150,11 @@ const addPopup = new PopupWithForm({
 
 const deletePopup = new PopupWithDelete({
   selector: selectors.deletePopupSelector,
-  handleFormSubmission: (cardId, card) => {
+  handleFormSubmission: (cardEl, cardID) => {
     api
-      .removeCard({ cardId })
+      .removeCard(cardID)
       .then(() => {
-        card.remove();
-      })
-      .then(() => {
+        cardEl.remove();
         deletePopup.close();
       })
       .catch((err) => console.error(`${err}`));
@@ -162,7 +167,7 @@ const avatarPopup = new PopupWithForm({
     api
       .updateProfilePicture(data)
       .then((data) => {
-        userData.setAvatar({
+        userData.setUserAvatar({
           avatar: data.avatar,
         });
       })

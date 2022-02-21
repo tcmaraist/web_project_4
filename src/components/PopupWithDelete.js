@@ -8,9 +8,9 @@ export default class PopupWithDelete extends Popup {
     this._formElement = this._popupElement.querySelector(".form");
   }
 
-  open(cardId, cardEl) {
+  open(cardID, cardEl) {
     super.open();
-    this._cardId = cardId;
+    this._cardId = cardID;
     this._cardEl = cardEl;
   }
 
