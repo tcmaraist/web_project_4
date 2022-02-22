@@ -117,7 +117,22 @@ const cardPreviewPopup = new PopupWithImage(selectors.previewPopup);
 const editPopup = new PopupWithForm({
   selector: selectors.profileModalSelector,
   handleFormSubmission: (data) => {
-    userData.setUserInfo({ name: data.name, about: data.about });
+    api
+      .setUserInfo(data)
+      .then((data) => {
+        userData.setUserInfo({
+          name: data.name,
+          about: data.about,
+          id: data._id,
+        });
+        editPopup.close();
+      })
+      .catch((err) => {
+        console.error(`${err}`);
+      })
+      .finally(() => {
+        editPopup.renderSaving(false);
+      });
   },
 });
 
@@ -147,7 +162,7 @@ const deletePopup = new PopupWithDelete({
     api
       .removeCard(cardID)
       .then(() => {
-        createCard(card).remove();
+        card._remove();
         deletePopup.close();
       })
       .catch((err) => console.error(`${err}`))
