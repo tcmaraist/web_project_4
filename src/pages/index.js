@@ -98,7 +98,7 @@ function createCard(item) {
       handleCardClick: (data) => cardPreviewPopup.open(data),
       userId: userData.getUserId(),
       handleDeleteClick: function handleDeleteClick() {
-        deletePopup.open(item.cardId, card);
+        deletePopup.open(item._id, card);
       },
       handleLikes: function handleLikes() {
         if (card._isLiked()) {
@@ -150,14 +150,18 @@ const addPopup = new PopupWithForm({
 
 const deletePopup = new PopupWithDelete({
   selector: selectors.deletePopupSelector,
-  handleFormSubmission: (cardEl, cardID) => {
+  handleFormSubmission: (cardID, card) => {
+    debugger;
     api
       .removeCard(cardID)
       .then(() => {
-        cardEl.remove();
+        card.remove();
         deletePopup.close();
       })
-      .catch((err) => console.error(`${err}`));
+      .catch((err) => console.error(`${err}`))
+      .finally(() => {
+        // deletePopup.renderSaving(false);
+      });
   },
 });
 
@@ -170,15 +174,14 @@ const avatarPopup = new PopupWithForm({
         userData.setUserAvatar({
           avatar: data.avatar,
         });
+        avatarPopup.close();
       })
-      .then(() => {
-        updateProfilePicture.close();
-      })
+
       .catch((err) => {
         console.error(`${err}`);
       })
       .finally(() => {
-        updateProfilePicture.renderSaving(false);
+        avatarPopup.renderSaving(false);
       });
   },
 });

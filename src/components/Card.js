@@ -57,9 +57,9 @@ class Card {
 
   _handleDeleteButtonVisibility() {
     if (this._userId === this._authUserId) {
-      this._deleteButton.classList.add("card__delete-button");
+      this._deleteButton.style.vilibility = "visible";
     } else {
-      this._deleteButton.classList.remove("card__delete-button");
+      this._deleteButton.style.visibility = "hidden";
     }
   }
   _isLiked() {
