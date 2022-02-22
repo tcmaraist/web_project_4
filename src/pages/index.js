@@ -1,9 +1,5 @@
 import "./index.css";
-import {
-  initialCards,
-  selectors,
-  validationSettings,
-} from "../utils/constants.js";
+import { selectors, validationSettings } from "../utils/constants.js";
 import FormValidator from "../components/FormValidator.js";
 import Card from "../components/Card.js";
 import Section from "../components/Section.js";
@@ -11,8 +7,7 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import UserInfo from "../components/UserInfo.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithDelete from "../components/PopupWithDelete.js";
-import Api from "../components/Api.js";
-import { renderLoading } from "../utils/utils";
+import Api from "../utils/Api.js";
 
 //constants
 const addModal = document.querySelector(".modal_type_add");
@@ -29,9 +24,7 @@ const editAvatarFormEl = editAvatarModal.querySelector(".form");
 // Buttons
 const editProfileButton = document.querySelector(".profile__edit-button");
 const editProfileCloseButton = editModal.querySelector(".modal__close-button");
-const editAvatarButton = document.querySelector(
-  ".profile__edit-button_type-avatar"
-);
+const editAvatarButton = document.querySelector(".profile__avatar-button");
 const editAvatarCloseButton = editAvatarModal.querySelector(
   ".modal__close-button"
 );
@@ -151,11 +144,10 @@ const addPopup = new PopupWithForm({
 const deletePopup = new PopupWithDelete({
   selector: selectors.deletePopupSelector,
   handleFormSubmission: (cardID, card) => {
-    debugger;
     api
       .removeCard(cardID)
       .then(() => {
-        card.remove();
+        createCard(card).remove();
         deletePopup.close();
       })
       .catch((err) => console.error(`${err}`))
