@@ -1,5 +1,5 @@
-.profile__edit-button_type_avatar {
-  background-image: url(../../../../images/VectorAvatarEdit.svg);
+.profile__avatar-button {
+  background-image: url(../../../images/VectorAvatarEdit.svg);
   background-repeat: no-repeat;
   background-position: center;
   background-color: transparent;
