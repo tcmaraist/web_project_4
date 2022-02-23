@@ -1,6 +1,6 @@
 class Card {
   constructor(
-    { data, handleCardClick, handleDeleteClick, handleLikes, userId },
+    { data, handleCardClick, handleDeleteClick, handleLike, userId },
     cardSelector
   ) {
     this._name = data.name;
@@ -12,7 +12,7 @@ class Card {
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
     this._handleDeleteClick = handleDeleteClick;
-    this._handleLikes = handleLikes;
+    this._handleLike = handleLike;
   }
 
   _getTemplate() {
@@ -24,21 +24,16 @@ class Card {
   }
 
   _isLiked() {
-    if (this._likeButton.classList.contains("card__like-button_type_active")) {
-      return true;
-    } else {
-      return false;
-    }
+    return this._likeButton.classList.contains("card__like-button_type_active");
   }
 
   _updateLikes(data) {
     this._likes = data.likes;
-    this._handleLikeButtonClick();
+    this._renderLikes();
   }
 
-  _handleLikeButtonClick() {
+  _renderLikes() {
     this._likeCounter.textContent = this._likes.length;
-
     if (this._likes.filter((user) => user._id === this._userId).length > 0) {
       this._likeButton.classList.add("card__like-button_type_active");
     } else {
@@ -50,7 +45,7 @@ class Card {
     this._element.remove();
     this._element = null;
   }
-  _handleDeleteButtonVisibility() {
+  _setDeleteButtonVisibility() {
     if (this._userId === this._authUserId) {
       this._deleteButton.style.vilibility = "visible";
     } else {
@@ -61,7 +56,7 @@ class Card {
   _setEventListeners() {
     this._likeButton = this._element.querySelector(".card__like-button");
     this._likeButton.addEventListener("click", () => {
-      this._handleLikes();
+      this._handleLike();
     });
 
     this._element
@@ -82,8 +77,8 @@ class Card {
       ".card__like-button-counter"
     );
     this._setEventListeners();
-    this._handleLikeButtonClick();
-    this._handleDeleteButtonVisibility();
+    this._renderLikes();
+    this._setDeleteButtonVisibility();
 
     this._element.querySelector(
       ".card__image"

@@ -60,10 +60,10 @@ const userData = new UserInfo({
   avatarSelector: ".profile__image",
 });
 
-const renderInitialCards = new Section(
+const cardSection = new Section(
   {
     renderer: (item) => {
-      renderInitialCards.addItem(createCard(item));
+      cardSection.addItem(createCard(item));
     },
   },
   selectors.cardSection
@@ -80,7 +80,7 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
     userData.setUserAvatar({
       avatar: avatar,
     });
-    renderInitialCards.renderItems(initialCards);
+    cardSection.renderItems(initialCards);
   })
   .catch((err) => console.error(`${err}`));
 
@@ -93,7 +93,7 @@ function createCard(item) {
       handleDeleteClick: function handleDeleteClick() {
         deletePopup.open(item._id, card);
       },
-      handleLikes: function handleLikes() {
+      handleLike: function handleLike() {
         if (card._isLiked()) {
           api
             .removeLike(item._id)
@@ -142,7 +142,7 @@ const addPopup = new PopupWithForm({
     api
       .addCard(item)
       .then((item) => {
-        renderInitialCards.addItem(createCard(item));
+        cardSection.addItem(createCard(item));
       })
       .then(() => {
         addPopup.close();
@@ -212,9 +212,6 @@ editPopup.setEventListeners();
 addPopup.setEventListeners();
 avatarPopup.setEventListeners();
 deletePopup.setEventListeners();
-
-editFormValidator.enableValidation();
-addFormValidator.enableValidation();
 
 // all the rest
 editProfileButton.addEventListener("click", () => {
